@@ -2,6 +2,8 @@ module com.farhad {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens com.farhad to javafx.fxml;
-    exports com.farhad;
+    exports com.farhad.controllers;
+    opens com.farhad.controllers to javafx.fxml;
+    exports com.farhad.application;
+    opens com.farhad.application to javafx.fxml;
 }
