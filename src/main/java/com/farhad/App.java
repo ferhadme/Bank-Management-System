@@ -1,5 +1,6 @@
 package com.farhad;
 
+import com.farhad.security.PBKDF2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -12,6 +13,8 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 import org.kordamp.bootstrapfx.scene.layout.Panel;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 public class App extends Application {
 
@@ -35,6 +38,12 @@ public class App extends Application {
 //        primaryStage.setScene(scene);
 //        primaryStage.sizeToScene();
 //        primaryStage.show();
+
+        try {
+            PBKDF2.generateHashPassword("acdajflas;fjdlow2");
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         scene = new Scene(loadFXML("view/primary"), 640, 480);
         scene.getStylesheets().add(String.valueOf(getClass().getResource("style/buttons.css")));
