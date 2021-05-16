@@ -13,13 +13,14 @@ public class PBKDF2 {
 
     public static String generateHashPassword(String password) throws InvalidKeySpecException,
             NoSuchAlgorithmException {
-        SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
-        random.nextBytes(salt);
-
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] hash = factory.generateSecret(spec).getEncoded();
-        return Arrays.toString(hash);
+        StringBuilder hashString = new StringBuilder();
+        for (byte b : hash) {
+            hashString.append(Math.abs(b));
+        }
+        return hashString.toString();
     }
 }
