@@ -1,5 +1,4 @@
 package com.farhad.controllers;
 
-public class PrimaryController {
-
+public class LoginController {
 }

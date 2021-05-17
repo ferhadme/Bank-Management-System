@@ -14,9 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
         scene = new Scene(loadFXML("view/primary"), 640, 480);
-        scene.getStylesheets().add(String.valueOf(getClass().getResource("style/buttons.css")));
         primaryStage.setScene(scene);
         primaryStage.show();
     }
