@@ -4,23 +4,22 @@ create database bank_management_system;
 create table customer_types (
 	customer_type_code int primary key,
     customer_type_name varchar(25) not null,
-    customer_type_description varchar(200)
+    customer_type_description varchar(500)
 );
 
 # 2
 create table account_types (
 	account_type_code int primary key,
     account_type_name varchar(25) not null,
-    account_type_description varchar(200)
+    account_type_description varchar(500)
 );
 
 # 3
 create table transaction_types (
 	transaction_type_code int primary key,
     transaction_type_name varchar(25) not null,
-    transaction_type_description varchar(200)
+    transaction_type_description varchar(500)
 );
-
 # 4
 create table merchants (
 	merchant_id int primary key auto_increment,
@@ -136,13 +135,13 @@ values (1, 'Standart Account', 'Simple and comfortable account for daily purchas
 
 insert into transaction_types (transaction_type_code, transaction_type_name, transaction_type_description)
 values (1, 'ATM', 'Deposit or withdraw funds using an ATM'),
-(2, '', ''),
-('', '', ''),
-('', '', ''),
-('', '', '');
-
-select * from customer_types;
-
+(2, 'Charge', 'Record a purchase on a credit card or withdraw funds using a debit card'),
+(3, 'Check', 'Withdraw funds by writing a paper check'),
+(4, 'Deposit', 'Add funds to an account by any method'),
+(5, 'Online', 'Withdraw funds through a web-based store or online banking service'),
+(6, 'POS', 'Withdraw funds through a point-of-sale transaction'),
+(7, 'Transfer', 'Move funds from one account to another'),
+(8, 'Withdrawal', 'Deduct funds from an account by any method');
 
 
 

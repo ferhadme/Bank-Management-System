@@ -1,5 +1,6 @@
 package com.farhad;
 
+import com.farhad.database.DatabaseSource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,10 +14,16 @@ public class App extends Application {
     private static Scene scene;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        scene = new Scene(loadFXML("view/primary"), 640, 480);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public void init() throws Exception {
+        DatabaseSource.getInstance().open();
+    }
+
+    @Override
+    public void start(Stage stage) throws IOException {
+        modifyWidthAndHeight(stage);
+        scene = new Scene(loadFXML("view/login"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
@@ -28,8 +35,21 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
+    public static Scene getScene() {
+        return scene;
+    }
+
     public static void main(String[] args) {
         launch();
     }
 
+    @Override
+    public void stop() throws Exception {
+        DatabaseSource.getInstance().close();
+    }
+
+    private void modifyWidthAndHeight(Stage stage) {
+        stage.setMinHeight(800);
+        stage.setMinWidth(800);
+    }
 }

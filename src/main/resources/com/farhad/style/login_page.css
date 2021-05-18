@@ -1,0 +1,35 @@
+#login-page-root {
+    -fx-background-color: #0b1229;
+    -fx-padding: 20;
+}
+
+#welcome-message {
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+}
+
+.login-page-labels {
+    -fx-text-fill: white;
+    -fx-text-style: bold;
+}
+
+.login-page-text-fields {
+    -fx-min-height: 30;
+    -fx-min-width: 250;
+}
+
+.login-page-help-questions {
+    -fx-text-fill: #0098f8;
+}
+
+#login-page-login-btn {
+    -fx-min-width: 100;
+    -fx-min-height: 30;
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
