@@ -2,7 +2,7 @@ module com.farhad {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.jfoenix;
-    requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
 
     exports com.farhad.controllers;
     opens com.farhad.controllers to javafx.fxml;
