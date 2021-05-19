@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class App extends Application {
-
     private static Scene scene;
 
     @Override
@@ -30,13 +29,13 @@ public class App extends Application {
         scene.setRoot(loadFXML(fxml));
     }
 
+    public static void setRoot(Parent root) throws IOException {
+        scene.setRoot(root);
+    }
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
-    }
-
-    public static Scene getScene() {
-        return scene;
     }
 
     public static void main(String[] args) {

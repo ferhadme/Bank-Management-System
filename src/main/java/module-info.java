@@ -3,6 +3,7 @@ module com.farhad {
     requires javafx.fxml;
     requires com.jfoenix;
     requires java.sql;
+    requires javafx.web;
 
     exports com.farhad.controllers;
     opens com.farhad.controllers to javafx.fxml;

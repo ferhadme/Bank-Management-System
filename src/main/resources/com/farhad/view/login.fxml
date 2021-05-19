@@ -9,14 +9,14 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.LoginController"
             id="login-page-root"
-            stylesheets="@../style/login_page.css" >
+            stylesheets="@../style/login_page.css">
 
     <top>
         <HBox spacing="25.0" alignment="CENTER_LEFT">
-            <ImageView id="application-icon" fitHeight="50.0" fitWidth="50.0" >
-                <Image url="@../icons/banking-system.png" />
+            <ImageView id="application-icon" fitHeight="50.0" fitWidth="50.0">
+                <Image url="@../icons/banking-system.png"/>
             </ImageView>
-            <Label text="Welcome to BMS" id="welcome-message" />
+            <Label text="Welcome to BMS" id="welcome-message"/>
         </HBox>
     </top>
 
@@ -24,20 +24,32 @@
         <VBox spacing="10.0" alignment="CENTER">
             <VBox spacing="25.0" alignment="CENTER">
                 <HBox spacing="10.0" alignment="CENTER">
-                    <Label styleClass="login-page-labels" text="Username:" />
-                    <TextField fx:id="usernameTextField" styleClass="login-page-text-fields" />
+                    <Label styleClass="login-page-labels" text="Username:"/>
+                    <TextField fx:id="usernameTextField" styleClass="login-page-text-fields"/>
                 </HBox>
                 <HBox spacing="10.0" alignment="CENTER">
-                    <Label styleClass="login-page-labels" text="Password: " />
-                    <PasswordField fx:id="passwordTextField" styleClass="login-page-text-fields" />
+                    <Label styleClass="login-page-labels" text="Password: "/>
+                    <PasswordField fx:id="passwordTextField" styleClass="login-page-text-fields"/>
                 </HBox>
-                <Button fx:id="loginButton" id="login-page-login-btn" text="Login" />
-            <Separator maxWidth="450" />
+                <Button fx:id="loginButton" id="login-page-login-btn" text="Login"/>
+                <Separator maxWidth="450"/>
             </VBox>
-    <!--        onMouseEntered = scene.setCursor(Cursor.HAND)-->
-            <Label fx:id="forgotPasswordLabel" styleClass="login-page-help-questions" text="Forgot password?" />
-            <Label fx:id="signUpLabel" styleClass="login-page-help-questions" text="Don't have an account? Sign up" />
+            <Label fx:id="forgotPasswordLabel" styleClass="login-page-help-questions" text="Forgot password?"/>
+            <Label fx:id="signUpLabel" styleClass="login-page-help-questions" text="Don't have an account? Sign up"/>
         </VBox>
     </center>
-    
+
+    <bottom>
+        <VBox spacing="5.0" alignment="CENTER_LEFT">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label fx:id="projectInfoLabel" id="login-page-info" text="&#169; This project is developed by Farhad Mehdizada"/>
+                <ImageView>
+                    <Image url="@../icons/github.png" />
+                </ImageView>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <Label fx:id="devInfoLabel" id="login-page-info" text="frhdmehdiyev@gmail.com" />
+            </HBox>
+        </VBox>
+    </bottom>
 </BorderPane>
