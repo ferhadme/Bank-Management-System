@@ -13,7 +13,7 @@
 
     <top>
         <HBox spacing="25.0" alignment="CENTER_LEFT">
-            <ImageView id="application-icon" fitHeight="50.0" fitWidth="50.0">
+            <ImageView id="application-icon" >
                 <Image url="@../icons/banking-system.png"/>
             </ImageView>
             <Label text="Welcome to BMS" id="welcome-message"/>

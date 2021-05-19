@@ -1,0 +1,9 @@
+#registration-page-root {
+    -fx-background-color: #0b1229;
+    -fx-padding: 20;
+}
+
+#sign-up-label {
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+}

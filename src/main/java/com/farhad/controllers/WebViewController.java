@@ -81,7 +81,7 @@ public class WebViewController {
             Parent root = fxmlLoader.load();
             App.setRoot(root);
         } catch (IOException e) {
-            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in LoginController.java");
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
         }
     }
 
@@ -113,14 +113,3 @@ public class WebViewController {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-

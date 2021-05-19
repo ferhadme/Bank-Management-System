@@ -45,13 +45,7 @@ public class LoginController {
         changeLoginBtnCursorOnKeyTyped(usernameTextField);
         changeLoginBtnCursorOnKeyTyped(passwordTextField);
 
-        loginButton.setOnAction(event -> {
-            if (loginButtonActivation) {
-                System.out.println("Login is available");
-            } else {
-                System.out.println("Login is not available");
-            }
-        });
+        loginButton.setOnAction(this::login);
 
         labelsPropertiesOnMouseEntered(projectInfoLabel);
         labelsPropertiesOnMouseExited(projectInfoLabel);
@@ -62,6 +56,9 @@ public class LoginController {
         labelsPropertiesOnMouseExited(devInfoLabel);
         Tooltip.install(devInfoLabel, new Tooltip("Contact with Farhad Mehdizada"));
         devInfoLabel.setOnMouseClicked(this::sendMailToDev);
+
+        signUpLabel.setOnMouseClicked(this::registration);
+        forgotPasswordLabel.setOnMouseClicked(this::forgotPassword);
     }
 
     private void labelsPropertiesOnMouseEntered(Label label) {
@@ -98,12 +95,32 @@ public class LoginController {
             WebViewController controller = fxmlLoader.getController();
             controller.loadURL(WebViewController.SOURCE_CODE, true);
         } catch (IOException e) {
-            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in WebViewController.java");
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in webview.fxml");
         }
     }
 
     private void sendMailToDev(MouseEvent event) {
-        
+        /*
+        NOT IMPLEMENTED YET...
+         */
+    }
+
+    private void login(ActionEvent event) {
+
+    }
+
+    private void registration(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/registration.fxml"));
+            Parent root = fxmlLoader.load();
+            App.setRoot(root);
+        } catch (IOException e) {
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in registration.fxml");
+        }
+    }
+
+    private void forgotPassword(MouseEvent event) {
+
     }
 
 }

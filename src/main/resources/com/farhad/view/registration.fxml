@@ -6,11 +6,45 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.RegistrationController"
-            prefHeight="400.0" prefWidth="600.0">
+            id="registration-page-root"
+            stylesheets="@../style/registration_page.css">
     <top>
-        <Label text="This is registration page"/>
+        <HBox spacing="25.0" alignment="CENTER_LEFT">
+            <ImageView>
+                <Image url="@../icons/registration.png" />
+            </ImageView>
+            <Label text="Sign Up" id="sign-up-label"/>
+        </HBox>
     </top>
+
+    <center>
+        <VBox>
+            <VBox>
+                <HBox>
+                    <HBox>
+                        <Label text="Phone Number:"/>
+                        <TextField />
+                    </HBox>
+                    <HBox>
+                        <Label text="Email:"/>
+                        <TextField />
+                    </HBox>
+                </HBox>
+                <HBox>
+                    <HBox>
+                        <Label text="Customer_type" />
+                        <TextField />
+                    </HBox>
+                </HBox>
+                <Separator />
+            </VBox>
+            <Label text="Have an account? Login" />
+        </VBox>
+    </center>
+
 </BorderPane>
