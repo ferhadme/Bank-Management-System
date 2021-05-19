@@ -7,10 +7,48 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.web.WebView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       prefHeight="400.0" prefWidth="600.0"
-      fx:controller="com.farhad.controllers.WebViewController">
-    <WebView fx:id="webView">
-
-    </WebView>
+      fx:controller="com.farhad.controllers.WebViewController"
+      stylesheets="@../style/webview.css">
+    <HBox spacing="5.0">
+        <Button fx:id="homeButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@../icons/home.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="prevButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@../icons/previous-button.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="nextButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@../icons/next-button.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="refreshButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@../icons/refresh.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="copyButton">
+            <graphic>
+                <ImageView>
+                    <Image url="@../icons/copy.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+    </HBox>
+    <WebView fx:id="webView" />
 </VBox>

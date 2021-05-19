@@ -42,13 +42,13 @@
     <bottom>
         <VBox spacing="5.0" alignment="CENTER_LEFT">
             <HBox spacing="10.0" alignment="CENTER_LEFT">
-                <Label fx:id="projectInfoLabel" id="login-page-info" text="This project is developed by Farhad Mehdizada"/>
+                <Label fx:id="projectInfoLabel" id="login-page-info" text="&#169; This project is developed by Farhad Mehdizada"/>
                 <ImageView>
                     <Image url="@../icons/github.png" />
                 </ImageView>
             </HBox>
             <HBox alignment="CENTER_LEFT">
-                <Label id="login-page-info" text="frhdmehdiyev@gmail.com" />
+                <Label fx:id="devInfoLabel" id="login-page-info" text="frhdmehdiyev@gmail.com" />
             </HBox>
         </VBox>
     </bottom>

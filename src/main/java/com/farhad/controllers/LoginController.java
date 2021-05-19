@@ -1,6 +1,7 @@
 package com.farhad.controllers;
 
 import com.farhad.App;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -9,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
@@ -29,14 +31,12 @@ public class LoginController {
     private Label signUpLabel;
     @FXML
     private Label projectInfoLabel;
+    @FXML
+    private Label devInfoLabel;
 
     private boolean loginButtonActivation;
 
     public void initialize() {
-        setupUI();
-    }
-
-    private void setupUI() {
         labelsPropertiesOnMouseEntered(forgotPasswordLabel);
         labelsPropertiesOnMouseExited(forgotPasswordLabel);
         labelsPropertiesOnMouseEntered(signUpLabel);
@@ -56,17 +56,12 @@ public class LoginController {
         labelsPropertiesOnMouseEntered(projectInfoLabel);
         labelsPropertiesOnMouseExited(projectInfoLabel);
         Tooltip.install(projectInfoLabel, new Tooltip("See source code of the project on GitHub"));
-        projectInfoLabel.setOnMouseClicked(event -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/webview.fxml"));
-                Parent root = fxmlLoader.load();
-                App.setRoot(root);
-                WebViewController controller = fxmlLoader.getController();
-                controller.loadURL("http://www.google.com");
-            } catch (IOException e) {
-                Logger.getLogger("IOException").log(Level.SEVERE, "Root file is not found");
-            }
-        });
+        projectInfoLabel.setOnMouseClicked(this::loadWebView);
+
+        labelsPropertiesOnMouseEntered(devInfoLabel);
+        labelsPropertiesOnMouseExited(devInfoLabel);
+        Tooltip.install(devInfoLabel, new Tooltip("Contact with Farhad Mehdizada"));
+        devInfoLabel.setOnMouseClicked(this::sendMailToDev);
     }
 
     private void labelsPropertiesOnMouseEntered(Label label) {
@@ -93,6 +88,22 @@ public class LoginController {
                 loginButtonActivation = false;
             }
         });
+    }
+
+    private void loadWebView(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/webview.fxml"));
+            Parent root = fxmlLoader.load();
+            App.setRoot(root);
+            WebViewController controller = fxmlLoader.getController();
+            controller.loadURL(WebViewController.SOURCE_CODE, true);
+        } catch (IOException e) {
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in WebViewController.java");
+        }
+    }
+
+    private void sendMailToDev(MouseEvent event) {
+        
     }
 
 }

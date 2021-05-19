@@ -6,9 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.RegistrationController"
             prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+    <top>
+        <Label text="This is registration page"/>
+    </top>
+</BorderPane>
