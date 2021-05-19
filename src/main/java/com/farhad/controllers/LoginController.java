@@ -34,7 +34,7 @@ public class LoginController {
     @FXML
     private Label devInfoLabel;
 
-    private boolean loginButtonActivation;
+    // private boolean loginButtonActivation;
 
     public void initialize() {
         labelsPropertiesOnMouseEntered(forgotPasswordLabel);
@@ -79,10 +79,10 @@ public class LoginController {
         textField.setOnKeyTyped(event -> {
             if (textField.getText().length() >= 1 && passwordTextField.getText().length() >= 8) {
                 loginButton.setCursor(Cursor.HAND);
-                loginButtonActivation = true;
+                // loginButtonActivation = true;
             } else {
                 loginButton.setCursor(Cursor.DEFAULT);
-                loginButtonActivation = false;
+                // loginButtonActivation = false;
             }
         });
     }

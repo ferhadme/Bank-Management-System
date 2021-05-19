@@ -53,9 +53,9 @@
                     <Label styleClass="label" text="Other Details:" />
                     <TextField styleClass="text-field"/>
                 </HBox>
-                <Separator />
+                <Separator maxWidth="350" />
             </VBox>
-            <Label id="login-label" text="Have an account? Login" />
+            <Label fx:id="loginLabel" id="login-label" text="Have an account? Login" />
         </VBox>
     </center>
 
