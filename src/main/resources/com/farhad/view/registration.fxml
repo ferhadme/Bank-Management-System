@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.RegistrationController"
@@ -23,42 +19,42 @@
     </top>
 
     <center>
-        <VBox>
-            <VBox>
-                <HBox>
-                    <Label text="Full Name:" />
+        <VBox alignment="CENTER">
+            <VBox spacing="15.0">
+                <HBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Label styleClass="single-label" text="Full Name:" />
                     <TextField />
                 </HBox>
-                <HBox>
-                    <Label text="Customer Type:" />
+                <HBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Label style="single-label" text="Customer Type:" />
                     <ChoiceBox fx:id="customerTypesChoiceBox" />
                 </HBox>
-                <HBox>
-                    <HBox>
-                        <Label text="Phone:" />
+                <HBox spacing="10.0">
+                    <HBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="double-label" text="Phone:" />
                         <TextField />
                     </HBox>
-                    <HBox>
-                        <Label text="Email:" />
+                    <HBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="double-label" text="Email:" />
                         <TextField />
                     </HBox>
                 </HBox>
-                <HBox>
-                    <Label text="Username:" />
+                <HBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Label styleClass="single-label" text="Username:" />
                     <TextField />
                 </HBox>
-                <HBox>
-                    <HBox>
-                        <Label text="Password" />
+                <HBox spacing="10.0">
+                    <HBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="double-label" text="Password" />
                         <PasswordField />
                     </HBox>
-                    <HBox>
-                        <Label text="Confirm Password:" />
+                    <HBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="double-label" text="Confirm Password:" />
                         <PasswordField />
                     </HBox>
                 </HBox>
-                <HBox>
-                    <Label text="Other Details" />
+                <HBox spacing="5.0" alignment="CENTER_LEFT">
+                    <Label styleClass="single-label" text="Other Details" />
                     <TextField />
                 </HBox>
                 <Separator />
