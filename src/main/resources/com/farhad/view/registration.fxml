@@ -26,20 +26,40 @@
         <VBox>
             <VBox>
                 <HBox>
+                    <Label text="Full Name:" />
+                    <TextField />
+                </HBox>
+                <HBox>
+                    <Label text="Customer Type:" />
+                    <ChoiceBox fx:id="customerTypesChoiceBox" />
+                </HBox>
+                <HBox>
                     <HBox>
-                        <Label text="Phone Number:"/>
+                        <Label text="Phone:" />
                         <TextField />
                     </HBox>
                     <HBox>
-                        <Label text="Email:"/>
+                        <Label text="Email:" />
                         <TextField />
                     </HBox>
                 </HBox>
                 <HBox>
+                    <Label text="Username:" />
+                    <TextField />
+                </HBox>
+                <HBox>
                     <HBox>
-                        <Label text="Customer_type" />
-                        <TextField />
+                        <Label text="Password" />
+                        <PasswordField />
                     </HBox>
+                    <HBox>
+                        <Label text="Confirm Password:" />
+                        <PasswordField />
+                    </HBox>
+                </HBox>
+                <HBox>
+                    <Label text="Other Details" />
+                    <TextField />
                 </HBox>
                 <Separator />
             </VBox>
