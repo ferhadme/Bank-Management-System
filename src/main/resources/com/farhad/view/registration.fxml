@@ -19,47 +19,43 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER">
+        <VBox spacing="10.0" alignment="CENTER">
             <VBox spacing="15.0">
-                <HBox spacing="5.0" alignment="CENTER_LEFT">
-                    <Label styleClass="single-label" text="Full Name:" />
-                    <TextField />
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Full Name:" />
+                    <TextField styleClass="text-field" />
                 </HBox>
-                <HBox spacing="5.0" alignment="CENTER_LEFT">
-                    <Label style="single-label" text="Customer Type:" />
-                    <ChoiceBox fx:id="customerTypesChoiceBox" />
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Customer Type:" />
+                    <ChoiceBox fx:id="customerTypesChoiceBox" id="choice-box" />
                 </HBox>
-                <HBox spacing="10.0">
-                    <HBox spacing="5.0" alignment="CENTER">
-                        <Label styleClass="double-label" text="Phone:" />
-                        <TextField />
-                    </HBox>
-                    <HBox spacing="5.0" alignment="CENTER">
-                        <Label styleClass="double-label" text="Email:" />
-                        <TextField />
-                    </HBox>
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Phone:" />
+                    <TextField styleClass="text-field"/>
                 </HBox>
-                <HBox spacing="5.0" alignment="CENTER_LEFT">
-                    <Label styleClass="single-label" text="Username:" />
-                    <TextField />
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Email:" />
+                    <TextField styleClass="text-field"/>
                 </HBox>
-                <HBox spacing="10.0">
-                    <HBox spacing="5.0" alignment="CENTER">
-                        <Label styleClass="double-label" text="Password" />
-                        <PasswordField />
-                    </HBox>
-                    <HBox spacing="5.0" alignment="CENTER">
-                        <Label styleClass="double-label" text="Confirm Password:" />
-                        <PasswordField />
-                    </HBox>
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Username:" />
+                    <TextField styleClass="text-field"/>
                 </HBox>
-                <HBox spacing="5.0" alignment="CENTER_LEFT">
-                    <Label styleClass="single-label" text="Other Details" />
-                    <TextField />
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Password:" />
+                    <PasswordField styleClass="text-field"/>
+                </HBox>
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Confirm Password:" />
+                    <PasswordField styleClass="text-field"/>
+                </HBox>
+                <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Other Details:" />
+                    <TextField styleClass="text-field"/>
                 </HBox>
                 <Separator />
             </VBox>
-            <Label text="Have an account? Login" />
+            <Label id="login-label" text="Have an account? Login" />
         </VBox>
     </center>
 

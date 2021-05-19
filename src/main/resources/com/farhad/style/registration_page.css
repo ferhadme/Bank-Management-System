@@ -8,10 +8,21 @@
     -fx-font-size: 30;
 }
 
-.single-label {
-    
+.label {
+    -fx-text-fill: white;
+    -fx-text-style: bold;
+    -fx-min-width: 150;
 }
 
-.double-label {
+.text-field {
+    -fx-min-width: 220;
+    -fx-min-height: 30;
+}
 
+#choice-box {
+    -fx-min-width: 220;
+}
+
+#login-label {
+    -fx-text-fill: #0098f8;
 }
