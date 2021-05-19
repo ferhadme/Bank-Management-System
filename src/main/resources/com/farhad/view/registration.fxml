@@ -6,11 +6,65 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.RegistrationController"
-            prefHeight="400.0" prefWidth="600.0">
+            id="registration-page-root"
+            stylesheets="@../style/registration_page.css">
     <top>
-        <Label text="This is registration page"/>
+        <HBox spacing="25.0" alignment="CENTER_LEFT">
+            <ImageView>
+                <Image url="@../icons/registration.png" />
+            </ImageView>
+            <Label text="Sign Up" id="sign-up-label"/>
+        </HBox>
     </top>
+
+    <center>
+        <VBox>
+            <VBox>
+                <HBox>
+                    <Label text="Full Name:" />
+                    <TextField />
+                </HBox>
+                <HBox>
+                    <Label text="Customer Type:" />
+                    <ChoiceBox fx:id="customerTypesChoiceBox" />
+                </HBox>
+                <HBox>
+                    <HBox>
+                        <Label text="Phone:" />
+                        <TextField />
+                    </HBox>
+                    <HBox>
+                        <Label text="Email:" />
+                        <TextField />
+                    </HBox>
+                </HBox>
+                <HBox>
+                    <Label text="Username:" />
+                    <TextField />
+                </HBox>
+                <HBox>
+                    <HBox>
+                        <Label text="Password" />
+                        <PasswordField />
+                    </HBox>
+                    <HBox>
+                        <Label text="Confirm Password:" />
+                        <PasswordField />
+                    </HBox>
+                </HBox>
+                <HBox>
+                    <Label text="Other Details" />
+                    <TextField />
+                </HBox>
+                <Separator />
+            </VBox>
+            <Label text="Have an account? Login" />
+        </VBox>
+    </center>
+
 </BorderPane>
