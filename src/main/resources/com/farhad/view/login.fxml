@@ -28,7 +28,7 @@
                     <TextField fx:id="usernameTextField" styleClass="login-page-text-fields"/>
                 </HBox>
                 <HBox spacing="10.0" alignment="CENTER">
-                    <Label styleClass="login-page-labels" text="Password: "/>
+                    <Label styleClass="login-page-labels" text="Password:"/>
                     <PasswordField fx:id="passwordTextField" styleClass="login-page-text-fields"/>
                 </HBox>
                 <Button fx:id="loginButton" id="login-page-login-btn" text="Login"/>

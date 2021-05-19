@@ -42,8 +42,6 @@ public class WebViewController {
 
     private WebEngine webEngine;
     private WebHistory history;
-    private int historyCounter;
-    private int historyMaxCounter;
 
     public void initialize() {
         VBox.setVgrow(webView, Priority.ALWAYS);
@@ -59,17 +57,8 @@ public class WebViewController {
         copyButton.setOnAction(this::copyButtonOnAction);
     }
 
-    /*
-    true --> user comes from login page
-    false --> user comes from registration page
-     */
-    private boolean userComesFrom;
-
-    public void loadURL(String url, boolean value) {
-        userComesFrom = value;
-        Tooltip.install(homeButton, new Tooltip(
-                userComesFrom ? "Go to Login page" : "Go to Registration page"
-        ));
+    public void loadURL(String url) {
+        Tooltip.install(homeButton, new Tooltip("Go to Login page"));
         webEngine = webView.getEngine();
         history = webEngine.getHistory();
         webEngine.load(url);
@@ -79,6 +68,7 @@ public class WebViewController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/login.fxml"));
             Parent root = fxmlLoader.load();
+            App.changeStageTitle("Login");
             App.setRoot(root);
         } catch (IOException e) {
             Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
