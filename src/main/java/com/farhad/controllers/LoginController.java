@@ -91,9 +91,10 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/webview.fxml"));
             Parent root = fxmlLoader.load();
+            App.changeStageTitle("Embedded Web Browser");
             App.setRoot(root);
             WebViewController controller = fxmlLoader.getController();
-            controller.loadURL(WebViewController.SOURCE_CODE, true);
+            controller.loadURL(WebViewController.SOURCE_CODE);
         } catch (IOException e) {
             Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in webview.fxml");
         }
@@ -113,6 +114,7 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/registration.fxml"));
             Parent root = fxmlLoader.load();
+            App.changeStageTitle("Registration");
             App.setRoot(root);
         } catch (IOException e) {
             Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in registration.fxml");

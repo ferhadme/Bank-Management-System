@@ -21,6 +21,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         modifyWidthAndHeight(stage);
         scene = new Scene(loadFXML("view/login"), 640, 480);
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
@@ -31,6 +32,10 @@ public class App extends Application {
 
     public static void setRoot(Parent root) throws IOException {
         scene.setRoot(root);
+    }
+
+    public static void changeStageTitle(String title) {
+        ((Stage) scene.getWindow()).setTitle(title);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

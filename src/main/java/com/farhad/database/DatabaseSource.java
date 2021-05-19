@@ -36,7 +36,6 @@ public class DatabaseSource {
         try {
             connection = DriverManager.getConnection(CONNECTION_STRING, USER, PASSWORD);
             init();
-            System.out.println(CUSTOMER_TYPE_KEY_VALUE);
             return true;
         } catch (SQLException sqlException) {
             DB_ERROR_LOGGER.log(Level.SEVERE, "Couldn't connect to the database");

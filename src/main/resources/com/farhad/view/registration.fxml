@@ -20,7 +20,7 @@
 
     <center>
         <VBox spacing="10.0" alignment="CENTER">
-            <VBox spacing="15.0">
+            <VBox spacing="15.0" alignment="CENTER">
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Full Name:" />
                     <TextField styleClass="text-field" />
@@ -53,7 +53,7 @@
                     <Label styleClass="label" text="Other Details:" />
                     <TextField styleClass="text-field"/>
                 </HBox>
-                <Button fx:id="signUpButton" text="Sign Up"/>
+                <Button fx:id="signUpButton" id="sign-up-btn" text="Sign Up"/>
                 <Separator maxWidth="350" />
             </VBox>
             <Label fx:id="loginLabel" id="login-label" text="Have an account? Login" />

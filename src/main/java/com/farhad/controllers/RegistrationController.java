@@ -3,7 +3,6 @@ package com.farhad.controllers;
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +61,7 @@ public class RegistrationController {
         try {
             FXMLLoader loader = new FXMLLoader(App.class.getResource("view/login.fxml"));
             Parent root = loader.load();
+            App.changeStageTitle("Login");
             App.setRoot(root);
         } catch (IOException e) {
             Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
