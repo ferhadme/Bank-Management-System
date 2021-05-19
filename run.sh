@@ -1,1 +1,1 @@
-mvn clean && mvn javafx:run
+mvn clean javafx:run
