@@ -5,10 +5,12 @@ import com.farhad.database.DatabaseSource;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -22,11 +24,14 @@ public class RegistrationController {
     @FXML
     private ChoiceBox<String> customerTypesChoiceBox;
     @FXML
+    private Button signUpButton;
+    @FXML
     private Label loginLabel;
 
     public void initialize() {
         setCustomerTypesChoiceBoxItems();
         loginLabelProperties();
+        signUpButton.setOnAction(this::signUp);
     }
 
     private void setCustomerTypesChoiceBoxItems() {
@@ -47,6 +52,10 @@ public class RegistrationController {
             loginLabel.setUnderline(false);
         });
         loginLabel.setOnMouseClicked(this::login);
+    }
+
+    private void signUp(ActionEvent event) {
+
     }
 
     private void login(MouseEvent event) {

@@ -53,6 +53,7 @@
                     <Label styleClass="label" text="Other Details:" />
                     <TextField styleClass="text-field"/>
                 </HBox>
+                <Button fx:id="signUpButton" text="Sign Up"/>
                 <Separator maxWidth="350" />
             </VBox>
             <Label fx:id="loginLabel" id="login-label" text="Have an account? Login" />
