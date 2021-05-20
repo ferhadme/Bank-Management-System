@@ -100,15 +100,11 @@ public class RegistrationController {
     }
 
     private boolean phoneNumberValidation() {
-        String phoneNumber = replaceWhiteSpaces(phoneTextField.getText().trim());
-        System.out.println(phoneNumber);
-        return phoneNumber.matches("^\\(\\+\\d+\\)(-?\\d+)+$");
+        return replaceWhiteSpaces(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
 
     private boolean emailValidation() {
-        String email = emailTextField.getText().trim();
-        System.out.println(email);
-        return email.matches(".+@(.*\\.?)+\\w+$");
+        return emailTextField.getText().trim().matches("\\S+@(\\S*\\.?)+\\w+$");
     }
 
     private boolean usernameValidation() {
