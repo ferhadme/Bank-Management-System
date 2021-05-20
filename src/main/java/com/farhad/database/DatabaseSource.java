@@ -24,6 +24,12 @@ public class DatabaseSource {
     public static final String COLUMN_CUSTOMER_TYPE_CODE = "customer_type_code";
     public static final String COLUMN_CUSTOMER_TYPE_NAME = "customer_type_name";
 
+    /*
+    customers table
+     */
+    public static final String TABLE_CUSTOMERS = "customers";
+    public static final String COLUMN_CUSTOMER_LOGIN = "customer_login";
+
     private Connection connection;
 
     private DatabaseSource() {}
@@ -71,6 +77,21 @@ public class DatabaseSource {
             }
         }
         DB_ERROR_LOGGER.log(Level.SEVERE, "Connection isn't initialized");
+        return false;
+    }
+
+    public boolean usernameExists(String username) {
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
+                    " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
+            int exist = 1;
+            while (rs.next()) {
+                exist = rs.getInt("is_contain");
+            }
+            return exist == 0;
+        } catch (SQLException e) {
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+        }
         return false;
     }
 }

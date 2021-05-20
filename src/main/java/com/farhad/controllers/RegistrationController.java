@@ -105,6 +105,11 @@ public class RegistrationController {
                             ". could not appear consecutively");
             return false;
         }
+        if (!usernameDBValidation()) {
+            showAlter("Username is already token",
+                    "Please take another username");
+            return false;
+        }
         return true;
     }
 
@@ -122,7 +127,9 @@ public class RegistrationController {
     }
 
     private boolean usernameDBValidation() {
-        return false;
+        boolean val = DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
+        System.out.println(val);
+        return val;
     }
 
     private boolean passwordValidation() {
