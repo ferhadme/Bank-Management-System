@@ -23,7 +23,7 @@
             <VBox spacing="15.0" alignment="CENTER">
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Full Name:" />
-                    <TextField styleClass="text-field" />
+                    <TextField fx:id="fullNameTextField" styleClass="text-field" />
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Customer Type:" />
@@ -31,27 +31,27 @@
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Phone:" />
-                    <TextField styleClass="text-field"/>
+                    <TextField fx:id="phoneTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Email:" />
-                    <TextField styleClass="text-field"/>
+                    <TextField fx:id="emailTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Username:" />
-                    <TextField styleClass="text-field"/>
+                    <TextField fx:id="usernameTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Password:" />
-                    <PasswordField styleClass="text-field"/>
+                    <PasswordField fx:id="passwordTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Confirm Password:" />
-                    <PasswordField styleClass="text-field"/>
+                    <PasswordField fx:id="confirmPassTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Other Details:" />
-                    <TextField styleClass="text-field"/>
+                    <TextField fx:id="otherDetailsTextField" styleClass="text-field"/>
                 </HBox>
                 <Button fx:id="signUpButton" id="sign-up-btn" text="Sign Up"/>
                 <Separator maxWidth="350" />
