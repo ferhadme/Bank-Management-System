@@ -29,6 +29,13 @@ public class DatabaseSource {
      */
     public static final String TABLE_CUSTOMERS = "customers";
     public static final String COLUMN_CUSTOMER_LOGIN = "customer_login";
+    public static final String COLUMN_CUSTOMER_NAME = "customer_name";
+    public static final String COLUMN_CUSTOMER_PHONE = "customer_phone";
+    public static final String COLUMN_CUSTOMER_EMAIL = "customer_email";
+    public static final String COLUMN_CUSTOMER_PASSWORD = "customer_password";
+    public static final String COLUMN_OTHER_DETAILS = "other_details";
+    public static final String COLUMN_CUSTOMER_TYPE_CODE_FK = "customer_types_code";
+
 
     private Connection connection;
 
@@ -93,5 +100,20 @@ public class DatabaseSource {
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
         return false;
+    }
+
+    public void signUpCustomer(String name, String phone, String email, String login, String password,
+                               String other_details, int customerTypeCode) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("INSERT INTO " + TABLE_CUSTOMERS +
+                    " (" + COLUMN_CUSTOMER_NAME + ", " + COLUMN_CUSTOMER_PHONE + ", " + COLUMN_CUSTOMER_EMAIL +
+                    ", " + COLUMN_CUSTOMER_LOGIN + ", " + COLUMN_CUSTOMER_PASSWORD + ", " + COLUMN_OTHER_DETAILS +
+                    ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + name + "', '" + phone + "', '" + email +
+                    "', '" + login + "', '" + password + "', '" + other_details + "', " + customerTypeCode + ");");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+        }
+
     }
 }

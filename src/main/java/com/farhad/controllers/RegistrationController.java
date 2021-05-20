@@ -2,6 +2,7 @@ package com.farhad.controllers;
 
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
+import com.farhad.security.PBKDF2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
@@ -69,8 +72,18 @@ public class RegistrationController {
     }
 
     private void signUp(ActionEvent event) {
-        if (checkAllTextFields()) {
-            // do database operations
+        try {
+            if (checkAllTextFields()) {
+                DatabaseSource.getInstance().signUpCustomer(
+                        fullNameTextField.getText().trim(), replaceWhiteSpaces(phoneTextField.getText().trim()),
+                        emailTextField.getText().trim(), usernameTextField.getText().trim(),
+                        PBKDF2.generateHashPassword(passwordTextField.getText()),
+                        otherDetailsTextField.getText().trim(),
+                        DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue())
+                );
+            }
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            Logger.getLogger("Password Hashing Error").log(Level.SEVERE, "Password hashing error has happened");
         }
     }
 
@@ -110,6 +123,20 @@ public class RegistrationController {
                     "Please take another username");
             return false;
         }
+        if (!passwordValidation()) {
+            showAlter("Username password is not safe",
+                    "Safe password policy:\n" +
+                            "At least 8 characters\n" +
+                            "Contains at least one digit\n" +
+                            "Contains at least one lower alpha character and one upper alpha character\n" +
+                            "Contains at least one character within a set of special characters (@#%$^ etc)\n" +
+                            "Does not contain space, tab, etc.");
+        }
+        if (!passwordConfirmation()) {
+            showAlter("Confirmation password is not correct",
+                    "Please provide the same password");
+            return false;
+        }
         return true;
     }
 
@@ -122,8 +149,7 @@ public class RegistrationController {
     }
 
     private boolean usernameRegexValidation() {
-        String username = usernameTextField.getText().trim();
-        return username.length() >= 8 && username.matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
+        return usernameTextField.getText().trim().matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
     }
 
     private boolean usernameDBValidation() {
@@ -133,12 +159,13 @@ public class RegistrationController {
     }
 
     private boolean passwordValidation() {
-        return false;
+        return passwordTextField.getText().matches(
+                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+        );
     }
 
     private boolean passwordConfirmation() {
-        // should be the same as actual password
-        return false;
+        return passwordTextField.getText().equals(confirmPassTextField.getText());
     }
 
     private String replaceWhiteSpaces(String str) {
