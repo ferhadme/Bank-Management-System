@@ -114,6 +114,5 @@ public class DatabaseSource {
             e.printStackTrace();
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
-
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.farhad.controllers.DashboardMenuController">
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/user.png" />
+        </ImageView>
+        <VBox>
+            <Label text="User full name"/>
+            <Label text="User login name"/>
+        </VBox>
+    </HBox>
+    <Separator />
+    <!--    About User -->
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/overview.png" />
+        </ImageView>
+        <Label text="Overview"/>
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/accounts.png" />
+        </ImageView>
+        <Label text="Accounts" />
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/transaction.png" />
+        </ImageView>
+        <Label text="Transactions"/>
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/products.png" />
+        </ImageView>
+        <Label text="Your Products"/>
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <Separator />
+    <!--    Settings -->
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/add-account.png" />
+        </ImageView>
+        <Label text="Add New Account" />
+    </HBox>
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/merchant.png" />
+        </ImageView>
+        <Label text="Be Merchant"/>
+        <Separator orientation="VERTICAL"/>
+    </HBox>
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/settings.png" />
+        </ImageView>
+        <Label text="User Settings" />
+    </HBox>
+
+    <Separator />
+    <HBox>
+        <ImageView>
+            <Image url="@../icons/logout.png" />
+        </ImageView>
+        <Label text="Logout" />
+    </HBox>
+
+</VBox>
