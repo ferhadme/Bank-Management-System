@@ -54,16 +54,15 @@ public class RegistrationController {
                 keySet.toArray(new String[0])
         );
         customerTypesChoiceBox.setItems(items);
-        customerTypesChoiceBox.getSelectionModel().select(6);
+        customerTypesChoiceBox.getSelectionModel().select(5);
     }
 
     private void loginLabelProperties() {
+        loginLabel.setCursor(Cursor.HAND);
         loginLabel.setOnMouseEntered(event -> {
-            loginLabel.setCursor(Cursor.HAND);
             loginLabel.setUnderline(true);
         });
         loginLabel.setOnMouseExited(event -> {
-            loginLabel.setCursor(Cursor.DEFAULT);
             loginLabel.setUnderline(false);
         });
         loginLabel.setOnMouseClicked(this::login);
@@ -92,17 +91,24 @@ public class RegistrationController {
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
+        if (!emailValidation()) {
+            showAlter("Email is not correct",
+                    "Please provide correct email address");
+            return false;
+        }
         return true;
     }
 
     private boolean phoneNumberValidation() {
         String phoneNumber = replaceWhiteSpaces(phoneTextField.getText().trim());
         System.out.println(phoneNumber);
-        return phoneNumber.matches("^\\(\\+\\d+\\)([- ]?\\d+)+$");
+        return phoneNumber.matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
 
     private boolean emailValidation() {
-        return false;
+        String email = emailTextField.getText().trim();
+        System.out.println(email);
+        return email.matches(".+@(.*\\.?)+\\w+$");
     }
 
     private boolean usernameValidation() {
