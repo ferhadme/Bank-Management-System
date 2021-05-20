@@ -1,6 +1,9 @@
 package com.farhad.controllers;
 
 import com.farhad.App;
+import com.farhad.database.DatabaseSource;
+import com.farhad.security.PBKDF2;
+import com.farhad.utils.AlertUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,10 +14,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +37,7 @@ public class LoginController {
     @FXML
     private Label devInfoLabel;
 
-    // private boolean loginButtonActivation;
+     private boolean loginButtonActivation;
 
     public void initialize() {
         labelsPropertiesOnMouseEntered(forgotPasswordLabel);
@@ -81,10 +84,10 @@ public class LoginController {
         textField.setOnKeyTyped(event -> {
             if (textField.getText().length() >= 1 && passwordTextField.getText().length() >= 8) {
                 loginButton.setCursor(Cursor.HAND);
-                // loginButtonActivation = true;
+                 loginButtonActivation = true;
             } else {
                 loginButton.setCursor(Cursor.DEFAULT);
-                // loginButtonActivation = false;
+                 loginButtonActivation = false;
             }
         });
     }
@@ -109,7 +112,35 @@ public class LoginController {
     }
 
     private void login(ActionEvent event) {
+        if (loginButtonActivation) {
+            login(usernameTextField.getText(), passwordTextField.getText());
+        }
+    }
 
+    public void login(String username, String password) {
+        try {
+            if (DatabaseSource.getInstance().usernameExists(username)
+                    && DatabaseSource.getInstance().loginCustomer(username, PBKDF2.generateHashPassword(password))) {
+                loadDashBoardOverview();
+            } else {
+                AlertUtils.showAlert("Username or password is incorrect",
+                        "Please provide correct username and password");
+            }
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            Logger.getLogger("Password Hashing Error").log(Level.SEVERE, "Password hashing error has happened");
+        }
+    }
+
+    private void loadDashBoardOverview() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("view/dashboard_overview.fxml"));
+            Parent root = fxmlLoader.load();
+            App.changeStageTitle("Dashboard Overview");
+            App.setRoot(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in dashboard_overview.fxml");
+        }
     }
 
     private void registration(MouseEvent event) {

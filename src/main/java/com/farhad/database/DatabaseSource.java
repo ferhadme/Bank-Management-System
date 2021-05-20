@@ -91,12 +91,13 @@ public class DatabaseSource {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
                     " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
-            int exist = 1;
+            int exist = 0;
             while (rs.next()) {
                 exist = rs.getInt("is_contain");
             }
-            return exist == 0;
+            return exist == 1;
         } catch (SQLException e) {
+            e.printStackTrace();
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
         return false;
@@ -111,8 +112,21 @@ public class DatabaseSource {
                     ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + name + "', '" + phone + "', '" + email +
                     "', '" + login + "', '" + password + "', '" + other_details + "', " + customerTypeCode + ");");
         } catch (SQLException e) {
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+        }
+    }
+
+    public boolean loginCustomer(String username, String password) {
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_CUSTOMER_PASSWORD + " FROM " +
+                    TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "';");
+            rs.next();
+            String realPassword = rs.getString(COLUMN_CUSTOMER_PASSWORD);
+            return realPassword.equals(password);
+        } catch (SQLException e) {
             e.printStackTrace();
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
+        return false;
     }
 }

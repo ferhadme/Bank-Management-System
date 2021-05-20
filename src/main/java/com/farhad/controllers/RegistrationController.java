@@ -3,6 +3,7 @@ package com.farhad.controllers;
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
 import com.farhad.security.PBKDF2;
+import com.farhad.utils.AlertUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,12 +13,10 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,16 +73,32 @@ public class RegistrationController {
     private void signUp(ActionEvent event) {
         try {
             if (checkAllTextFields()) {
+                String username = usernameTextField.getText().trim();
+                String password = passwordTextField.getText();
                 DatabaseSource.getInstance().signUpCustomer(
                         fullNameTextField.getText().trim(), replaceWhiteSpaces(phoneTextField.getText().trim()),
-                        emailTextField.getText().trim(), usernameTextField.getText().trim(),
-                        PBKDF2.generateHashPassword(passwordTextField.getText()),
+                        emailTextField.getText().trim(), username,
+                        PBKDF2.generateHashPassword(password),
                         otherDetailsTextField.getText().trim(),
                         DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue())
                 );
+                loadDashboardOverview(username, password);
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             Logger.getLogger("Password Hashing Error").log(Level.SEVERE, "Password hashing error has happened");
+        }
+    }
+
+    private void loadDashboardOverview(String username, String password) {
+        try {
+            FXMLLoader loader = new FXMLLoader(App.class.getResource("view/login.fxml"));
+            Parent root = loader.load();
+            LoginController controller = loader.getController();
+            App.setRoot(root);
+            controller.login(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
         }
     }
 
@@ -100,17 +115,17 @@ public class RegistrationController {
 
     private boolean checkAllTextFields() {
         if (!phoneNumberRegexValidation()) {
-            showAlter("Phone number is not correct",
+            AlertUtils.showAlert("Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
         if (!emailRegexValidation()) {
-            showAlter("Email is not correct",
+            AlertUtils.showAlert("Email is not correct",
                     "Please provide correct email address");
             return false;
         }
         if (!usernameRegexValidation()) {
-            showAlter("Username is not correct",
+            AlertUtils.showAlert("Username is not correct",
                     "Requirements:\n" +
                             "Length should be greater than or equal to 8\n" +
                             "Username could contain only letters, digits, ., _\n" +
@@ -118,13 +133,13 @@ public class RegistrationController {
                             ". could not appear consecutively");
             return false;
         }
-        if (!usernameDBValidation()) {
-            showAlter("Username is already token",
+        if (usernameDBValidation()) {
+            AlertUtils.showAlert("Username is already token",
                     "Please take another username");
             return false;
         }
         if (!passwordValidation()) {
-            showAlter("Username password is not safe",
+            AlertUtils.showAlert("Username password is not safe",
                     "Safe password policy:\n" +
                             "At least 8 characters\n" +
                             "Contains at least one digit\n" +
@@ -133,7 +148,7 @@ public class RegistrationController {
                             "Does not contain space, tab, etc.");
         }
         if (!passwordConfirmation()) {
-            showAlter("Confirmation password is not correct",
+            AlertUtils.showAlert("Confirmation password is not correct",
                     "Please provide the same password");
             return false;
         }
@@ -153,14 +168,12 @@ public class RegistrationController {
     }
 
     private boolean usernameDBValidation() {
-        boolean val = DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
-        System.out.println(val);
-        return val;
+        return DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
     }
 
     private boolean passwordValidation() {
         return passwordTextField.getText().matches(
-                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.@#$%^&+=])(?=\\S+$).{8,}$"
         );
     }
 
@@ -172,15 +185,5 @@ public class RegistrationController {
         return str.replaceAll("\\s", "");
     }
 
-    private void showAlter(String header, String content) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setTitle("Incorrect Input");
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            alert.close();
-        }
-    }
+
 }
