@@ -39,8 +39,10 @@ public class LoginController {
     public void initialize() {
         labelsPropertiesOnMouseEntered(forgotPasswordLabel);
         labelsPropertiesOnMouseExited(forgotPasswordLabel);
+        forgotPasswordLabel.setCursor(Cursor.HAND);
         labelsPropertiesOnMouseEntered(signUpLabel);
         labelsPropertiesOnMouseExited(signUpLabel);
+        signUpLabel.setCursor(Cursor.HAND);
 
         changeLoginBtnCursorOnKeyTyped(usernameTextField);
         changeLoginBtnCursorOnKeyTyped(passwordTextField);
@@ -49,11 +51,13 @@ public class LoginController {
 
         labelsPropertiesOnMouseEntered(projectInfoLabel);
         labelsPropertiesOnMouseExited(projectInfoLabel);
+        projectInfoLabel.setCursor(Cursor.HAND);
         Tooltip.install(projectInfoLabel, new Tooltip("See source code of the project on GitHub"));
         projectInfoLabel.setOnMouseClicked(this::loadWebView);
 
         labelsPropertiesOnMouseEntered(devInfoLabel);
         labelsPropertiesOnMouseExited(devInfoLabel);
+        devInfoLabel.setCursor(Cursor.HAND);
         Tooltip.install(devInfoLabel, new Tooltip("Contact with Farhad Mehdizada"));
         devInfoLabel.setOnMouseClicked(this::sendMailToDev);
 
@@ -64,14 +68,12 @@ public class LoginController {
     private void labelsPropertiesOnMouseEntered(Label label) {
         label.setOnMouseEntered(event -> {
             label.setUnderline(true);
-            label.setCursor(Cursor.HAND);
         });
     }
 
     private void labelsPropertiesOnMouseExited(Label label) {
         label.setOnMouseExited(event -> {
             label.setUnderline(false);
-            label.setCursor(Cursor.DEFAULT);
         });
     }
 

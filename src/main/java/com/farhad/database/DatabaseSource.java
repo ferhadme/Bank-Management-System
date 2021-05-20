@@ -24,6 +24,19 @@ public class DatabaseSource {
     public static final String COLUMN_CUSTOMER_TYPE_CODE = "customer_type_code";
     public static final String COLUMN_CUSTOMER_TYPE_NAME = "customer_type_name";
 
+    /*
+    customers table
+     */
+    public static final String TABLE_CUSTOMERS = "customers";
+    public static final String COLUMN_CUSTOMER_LOGIN = "customer_login";
+    public static final String COLUMN_CUSTOMER_NAME = "customer_name";
+    public static final String COLUMN_CUSTOMER_PHONE = "customer_phone";
+    public static final String COLUMN_CUSTOMER_EMAIL = "customer_email";
+    public static final String COLUMN_CUSTOMER_PASSWORD = "customer_password";
+    public static final String COLUMN_OTHER_DETAILS = "other_details";
+    public static final String COLUMN_CUSTOMER_TYPE_CODE_FK = "customer_types_code";
+
+
     private Connection connection;
 
     private DatabaseSource() {}
@@ -72,5 +85,35 @@ public class DatabaseSource {
         }
         DB_ERROR_LOGGER.log(Level.SEVERE, "Connection isn't initialized");
         return false;
+    }
+
+    public boolean usernameExists(String username) {
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
+                    " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
+            int exist = 1;
+            while (rs.next()) {
+                exist = rs.getInt("is_contain");
+            }
+            return exist == 0;
+        } catch (SQLException e) {
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+        }
+        return false;
+    }
+
+    public void signUpCustomer(String name, String phone, String email, String login, String password,
+                               String other_details, int customerTypeCode) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("INSERT INTO " + TABLE_CUSTOMERS +
+                    " (" + COLUMN_CUSTOMER_NAME + ", " + COLUMN_CUSTOMER_PHONE + ", " + COLUMN_CUSTOMER_EMAIL +
+                    ", " + COLUMN_CUSTOMER_LOGIN + ", " + COLUMN_CUSTOMER_PASSWORD + ", " + COLUMN_OTHER_DETAILS +
+                    ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + name + "', '" + phone + "', '" + email +
+                    "', '" + login + "', '" + password + "', '" + other_details + "', " + customerTypeCode + ");");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+        }
+
     }
 }

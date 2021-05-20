@@ -29,7 +29,7 @@
 }
 
 #sign-up-btn {
-    -fx-min-width: 100;
+    -fx-min-width: 150;
     -fx-min-height: 30;
     -fx-background-color:
         linear-gradient(#f0ff35, #a9ff00),

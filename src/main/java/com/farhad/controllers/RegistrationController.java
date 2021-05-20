@@ -2,6 +2,7 @@ package com.farhad.controllers;
 
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
+import com.farhad.security.PBKDF2;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,12 +10,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +29,21 @@ public class RegistrationController {
     private Button signUpButton;
     @FXML
     private Label loginLabel;
+
+    @FXML
+    private TextField fullNameTextField;
+    @FXML
+    private TextField phoneTextField;
+    @FXML
+    private TextField emailTextField;
+    @FXML
+    private TextField usernameTextField;
+    @FXML
+    private TextField passwordTextField;
+    @FXML
+    private TextField confirmPassTextField;
+    @FXML
+    private TextField otherDetailsTextField;
 
     public void initialize() {
         setCustomerTypesChoiceBoxItems();
@@ -39,22 +57,34 @@ public class RegistrationController {
                 keySet.toArray(new String[0])
         );
         customerTypesChoiceBox.setItems(items);
+        customerTypesChoiceBox.getSelectionModel().select(5);
     }
 
     private void loginLabelProperties() {
+        loginLabel.setCursor(Cursor.HAND);
         loginLabel.setOnMouseEntered(event -> {
-            loginLabel.setCursor(Cursor.HAND);
             loginLabel.setUnderline(true);
         });
         loginLabel.setOnMouseExited(event -> {
-            loginLabel.setCursor(Cursor.DEFAULT);
             loginLabel.setUnderline(false);
         });
         loginLabel.setOnMouseClicked(this::login);
     }
 
     private void signUp(ActionEvent event) {
-
+        try {
+            if (checkAllTextFields()) {
+                DatabaseSource.getInstance().signUpCustomer(
+                        fullNameTextField.getText().trim(), replaceWhiteSpaces(phoneTextField.getText().trim()),
+                        emailTextField.getText().trim(), usernameTextField.getText().trim(),
+                        PBKDF2.generateHashPassword(passwordTextField.getText()),
+                        otherDetailsTextField.getText().trim(),
+                        DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue())
+                );
+            }
+        } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+            Logger.getLogger("Password Hashing Error").log(Level.SEVERE, "Password hashing error has happened");
+        }
     }
 
     private void login(MouseEvent event) {
@@ -65,6 +95,92 @@ public class RegistrationController {
             App.setRoot(root);
         } catch (IOException e) {
             Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
+        }
+    }
+
+    private boolean checkAllTextFields() {
+        if (!phoneNumberRegexValidation()) {
+            showAlter("Phone number is not correct",
+                    "Please provide your phone number like (+000)00-000-00-00");
+            return false;
+        }
+        if (!emailRegexValidation()) {
+            showAlter("Email is not correct",
+                    "Please provide correct email address");
+            return false;
+        }
+        if (!usernameRegexValidation()) {
+            showAlter("Username is not correct",
+                    "Requirements:\n" +
+                            "Length should be greater than or equal to 8\n" +
+                            "Username could contain only letters, digits, ., _\n" +
+                            "Digits and . could not be the first character of username\n" +
+                            ". could not appear consecutively");
+            return false;
+        }
+        if (!usernameDBValidation()) {
+            showAlter("Username is already token",
+                    "Please take another username");
+            return false;
+        }
+        if (!passwordValidation()) {
+            showAlter("Username password is not safe",
+                    "Safe password policy:\n" +
+                            "At least 8 characters\n" +
+                            "Contains at least one digit\n" +
+                            "Contains at least one lower alpha character and one upper alpha character\n" +
+                            "Contains at least one character within a set of special characters (@#%$^ etc)\n" +
+                            "Does not contain space, tab, etc.");
+        }
+        if (!passwordConfirmation()) {
+            showAlter("Confirmation password is not correct",
+                    "Please provide the same password");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean phoneNumberRegexValidation() {
+        return replaceWhiteSpaces(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
+    }
+
+    private boolean emailRegexValidation() {
+        return emailTextField.getText().trim().matches("\\S+@(\\S*\\.?)+\\w+$");
+    }
+
+    private boolean usernameRegexValidation() {
+        return usernameTextField.getText().trim().matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
+    }
+
+    private boolean usernameDBValidation() {
+        boolean val = DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
+        System.out.println(val);
+        return val;
+    }
+
+    private boolean passwordValidation() {
+        return passwordTextField.getText().matches(
+                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$"
+        );
+    }
+
+    private boolean passwordConfirmation() {
+        return passwordTextField.getText().equals(confirmPassTextField.getText());
+    }
+
+    private String replaceWhiteSpaces(String str) {
+        return str.replaceAll("\\s", "");
+    }
+
+    private void showAlter(String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initModality(Modality.APPLICATION_MODAL);
+        alert.setTitle("Incorrect Input");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            alert.close();
         }
     }
 }
