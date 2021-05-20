@@ -70,7 +70,7 @@ public class RegistrationController {
 
     private void signUp(ActionEvent event) {
         if (checkAllTextFields()) {
-            //
+            // do database operations
         }
     }
 
@@ -86,28 +86,42 @@ public class RegistrationController {
     }
 
     private boolean checkAllTextFields() {
-        if (!phoneNumberValidation()) {
+        if (!phoneNumberRegexValidation()) {
             showAlter("Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
-        if (!emailValidation()) {
+        if (!emailRegexValidation()) {
             showAlter("Email is not correct",
                     "Please provide correct email address");
+            return false;
+        }
+        if (!usernameRegexValidation()) {
+            showAlter("Username is not correct",
+                    "Requirements:\n" +
+                            "Length should be greater than or equal to 8\n" +
+                            "Username could contain only letters, digits, ., _\n" +
+                            "Digits and . could not be the first character of username\n" +
+                            ". could not appear consecutively");
             return false;
         }
         return true;
     }
 
-    private boolean phoneNumberValidation() {
+    private boolean phoneNumberRegexValidation() {
         return replaceWhiteSpaces(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
 
-    private boolean emailValidation() {
+    private boolean emailRegexValidation() {
         return emailTextField.getText().trim().matches("\\S+@(\\S*\\.?)+\\w+$");
     }
 
-    private boolean usernameValidation() {
+    private boolean usernameRegexValidation() {
+        String username = usernameTextField.getText().trim();
+        return username.length() >= 8 && username.matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
+    }
+
+    private boolean usernameDBValidation() {
         return false;
     }
 
@@ -116,6 +130,7 @@ public class RegistrationController {
     }
 
     private boolean passwordConfirmation() {
+        // should be the same as actual password
         return false;
     }
 
