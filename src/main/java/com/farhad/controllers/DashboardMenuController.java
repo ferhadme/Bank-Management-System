@@ -104,6 +104,9 @@ public class DashboardMenuController {
         addAccountHBox.setOnMouseClicked(event -> {
             loadMenuItem("add_account", ActiveDashboardMenuItem.ADD_ACCOUNT, "Add new account");
         });
+        beMerchantHBox.setOnMouseClicked(event -> {
+            loadMenuItem("be_merchant", ActiveDashboardMenuItem.BE_MERCHANT, "Be merchant");
+        });
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
