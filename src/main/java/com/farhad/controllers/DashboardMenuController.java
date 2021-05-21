@@ -90,7 +90,7 @@ public class DashboardMenuController {
             );
         }
         overviewHBox.setOnMouseClicked(event -> {
-            loadMenuItem("overview", ActiveDashboardMenuItem.OVERVIEW, "Overview");
+            loadMenuItem("dashboard_overview", ActiveDashboardMenuItem.OVERVIEW, "Overview");
         });
         accountsHBox.setOnMouseClicked(event -> {
             loadMenuItem("accounts", ActiveDashboardMenuItem.ACCOUNTS, "Accounts");
@@ -137,10 +137,12 @@ public class DashboardMenuController {
             } catch (IOException e) {
                 Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in " + fxml + ".fxml");
             }
+        } else {
+            System.out.println("No need for loading this menu item");
         }
     }
 
     private void logout(MouseEvent event) {
-        // logout...
+        System.out.println("User is logout");
     }
 }
