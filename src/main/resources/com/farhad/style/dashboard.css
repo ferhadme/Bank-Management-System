@@ -22,3 +22,8 @@
     -fx-font-size: 15;
     -fx-text-fill: #444650;
 }
+
+#greeting-message {
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+}
