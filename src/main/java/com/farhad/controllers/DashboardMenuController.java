@@ -2,6 +2,7 @@ package com.farhad.controllers;
 
 import com.farhad.App;
 import com.farhad.utils.ActiveDashboardMenuItem;
+import com.farhad.utils.AlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -143,6 +144,16 @@ public class DashboardMenuController {
     }
 
     private void logout(MouseEvent event) {
-        System.out.println("User is logout");
+        if (AlertUtils.showConfirmationAlert("Logout", "Do you want to logout?", "")) {
+            try {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/login.fxml"));
+                Parent root = loader.load();
+                App.changeStageTitle("Login");
+                App.setRoot(root);
+                ActiveDashboardMenuItem.current = ActiveDashboardMenuItem.OVERVIEW;
+            } catch (IOException e) {
+                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
+            }
+        }
     }
 }

@@ -123,7 +123,7 @@ public class LoginController {
                     && DatabaseSource.getInstance().loginCustomer(username, PBKDF2.generateHashPassword(password))) {
                 loadDashBoardOverview();
             } else {
-                AlertUtils.showAlert("Username or password is incorrect",
+                AlertUtils.showErrorAlert("Incorrect Input", "Username or password is incorrect",
                         "Please provide correct username and password");
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
