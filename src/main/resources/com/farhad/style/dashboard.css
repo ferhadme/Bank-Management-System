@@ -10,10 +10,12 @@
 /* bigger than user login name */
 #user-full-name {
     -fx-font-size: 18;
+    -fx-text-fill: white;
 }
 
 #user-login-name {
     -fx-font-size: 14;
+    -fx-text-fill: white;
 }
 
 .dashboard-menu-item-label {

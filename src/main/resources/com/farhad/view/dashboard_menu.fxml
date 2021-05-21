@@ -9,7 +9,6 @@
       spacing="50.0"
       id="dashboard-menu"
       stylesheets="@../style/dashboard.css">
-<!--    <VBox alignment="CENTER">-->
     <HBox alignment="CENTER" spacing="5.0">
         <ImageView>
             <Image url="@../icons/user.png" />
@@ -19,87 +18,82 @@
             <Label id="user-login-name" text="User login name"/>
         </VBox>
     </HBox>
-<!--    </VBox>-->
     <Separator />
 
     <!--    About User -->
     <VBox spacing="20.0">
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="overviewHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/overview.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Overview"/>
+            <Label fx:id="overviewLabel" styleClass="dashboard-menu-item-label" text="Overview"/>
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="overviewSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="accountsHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/accounts.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Accounts" />
+            <Label fx:id="accountsLabel" styleClass="dashboard-menu-item-label" text="Accounts" />
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="accountsSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="transactionsHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/transaction.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Transactions"/>
+            <Label fx:id="transactionsLabel" styleClass="dashboard-menu-item-label" text="Transactions"/>
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="transactionsSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="productsHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/products.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Your Products"/>
+            <Label fx:id="productsLabel" styleClass="dashboard-menu-item-label" text="Your Products"/>
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="productsSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
     </VBox>
     <Separator />
 
         <!--    Settings -->
     <VBox spacing="20.0">
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="addAccountHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/add-account.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Add New Account" />
+            <Label fx:id="addAccountLabel" styleClass="dashboard-menu-item-label" text="Add New Account" />
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="addAccountSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="beMerchantHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/merchant.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="Be Merchant"/>
+            <Label fx:id="beMerchantLabel" styleClass="dashboard-menu-item-label" text="Be Merchant"/>
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="beMerchantSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox spacing="10.0" alignment="CENTER">
+        <HBox fx:id="userSettingsHBox" spacing="10.0" alignment="CENTER">
             <ImageView>
                 <Image url="@../icons/settings.png" />
             </ImageView>
-            <Label styleClass="dashboard-menu-item-label" text="User Settings" />
+            <Label fx:id="userSettingsLabel" styleClass="dashboard-menu-item-label" text="User Settings" />
             <Region HBox.hgrow="ALWAYS" />
-            <Separator orientation="VERTICAL" visible="false"/>
+            <Separator fx:id="userSettingsSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
     </VBox>
 
     <Region VBox.vgrow="ALWAYS" />
 
     <!--  Logout  -->
-    <HBox spacing="10.0" alignment="CENTER">
+    <HBox fx:id="logoutHBox" spacing="10.0" alignment="CENTER">
         <ImageView >
             <Image url="@../icons/logout.png" />
         </ImageView>
-        <Label styleClass="dashboard-menu-item-label" text="Logout" />
+        <Label fx:id="logoutLabel" styleClass="dashboard-menu-item-label" text="Logout" />
         <Region HBox.hgrow="ALWAYS" />
-        <Separator orientation="VERTICAL" halignment="RIGHT" visible="false" />
+        <Separator fx:id="logoutSeparator" orientation="VERTICAL" halignment="RIGHT" visible="false" />
     </HBox>
 </VBox>
-
-<!--
-   * #444650 default text color
--->
