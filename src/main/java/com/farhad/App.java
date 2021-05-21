@@ -20,7 +20,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         modifyWidthAndHeight(stage);
-        scene = new Scene(loadFXML("view/login"), 640, 480);
+        scene = new Scene(loadFXML("view/dashboard_overview"), 640, 480);
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();

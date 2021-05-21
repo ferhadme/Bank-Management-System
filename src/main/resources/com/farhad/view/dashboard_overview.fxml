@@ -8,7 +8,13 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.farhad.controllers.OverviewController" >
+            fx:controller="com.farhad.controllers.OverviewController"
+            id="dashboard-overview"
+            stylesheets="@../style/dashboard.css">
+
+    <left>
+        <fx:include source="dashboard_menu.fxml" />
+    </left>
 
     <center>
         <Label text="This is overview page" />
