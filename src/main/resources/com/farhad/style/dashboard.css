@@ -3,7 +3,7 @@
     -fx-padding: 20;
 }
 
-#dashboard-overview {
+.dashboard-root {
     -fx-background-color: #101022;
 }
 

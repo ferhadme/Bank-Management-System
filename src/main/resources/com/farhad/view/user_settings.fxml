@@ -8,16 +8,14 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.farhad.controllers.OverviewController"
-            styleClass="dashboard-root"
-            stylesheets="@../style/dashboard.css">
-
+            fx:controller="com.farhad.controllers.UserSettingsController"
+            stylesheets="@../style/dashboard.css"
+            styleClass="dashboard-root">
     <left>
         <fx:include source="dashboard_menu.fxml" />
     </left>
 
     <center>
-        <Label text="This is overview page" />
+        <Label text="User Settings" />
     </center>
-
 </BorderPane>

@@ -1,13 +1,20 @@
 package com.farhad.controllers;
 
+import com.farhad.App;
+import com.farhad.utils.ActiveDashboardMenuItem;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashboardMenuController {
     @FXML
@@ -82,6 +89,28 @@ public class DashboardMenuController {
                     (HBox) menuItem[0], (Label) menuItem[1], (Separator) menuItem[2]
             );
         }
+        overviewHBox.setOnMouseClicked(event -> {
+            loadMenuItem("dashboard_overview", ActiveDashboardMenuItem.OVERVIEW, "Overview");
+        });
+        accountsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("accounts", ActiveDashboardMenuItem.ACCOUNTS, "Accounts");
+        });
+        transactionsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("transactions", ActiveDashboardMenuItem.TRANSACTIONS, "Transactions");
+        });
+        productsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("products", ActiveDashboardMenuItem.PRODUCTS, "Products");
+        });
+        addAccountHBox.setOnMouseClicked(event -> {
+            loadMenuItem("add_account", ActiveDashboardMenuItem.ADD_ACCOUNT, "Add new account");
+        });
+        beMerchantHBox.setOnMouseClicked(event -> {
+            loadMenuItem("be_merchant", ActiveDashboardMenuItem.BE_MERCHANT, "Be merchant");
+        });
+        userSettingsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("user_settings", ActiveDashboardMenuItem.USER_SETTINGS, "User settings");
+        });
+        logoutHBox.setOnMouseClicked(this::logout);
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
@@ -95,5 +124,25 @@ public class DashboardMenuController {
             separator.setVisible(false);
             hBox.setCursor(Cursor.HAND);
         });
+    }
+
+    private void loadMenuItem(String fxml, ActiveDashboardMenuItem menuItem, String stageName) {
+        if (ActiveDashboardMenuItem.current != menuItem) {
+            try {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/" + fxml + ".fxml"));
+                Parent root = loader.load();
+                App.changeStageTitle(stageName);
+                App.setRoot(root);
+                ActiveDashboardMenuItem.current = menuItem;
+            } catch (IOException e) {
+                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in " + fxml + ".fxml");
+            }
+        } else {
+            System.out.println("No need for loading this menu item");
+        }
+    }
+
+    private void logout(MouseEvent event) {
+        System.out.println("User is logout");
     }
 }
