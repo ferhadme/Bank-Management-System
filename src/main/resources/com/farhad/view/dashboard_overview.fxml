@@ -17,7 +17,7 @@
     </left>
 
     <center>
-        <VBox>
+        <VBox alignment="CENTER">
             <HBox>
                 <TableView fx:id="outcomes"/>
                 <TableView fx:id="incomes"/>
