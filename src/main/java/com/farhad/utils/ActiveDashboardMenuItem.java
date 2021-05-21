@@ -1,6 +1,6 @@
 package com.farhad.utils;
 
-public enum ActiveDashboardMenu {
+public enum ActiveDashboardMenuItem {
     OVERVIEW,
     ACCOUNTS,
     TRANSACTIONS,
@@ -9,5 +9,5 @@ public enum ActiveDashboardMenu {
     BE_MERCHANT,
     USER_SETTINGS;
 
-    public static ActiveDashboardMenu current = OVERVIEW;
+    public static ActiveDashboardMenuItem current = OVERVIEW;
 }
