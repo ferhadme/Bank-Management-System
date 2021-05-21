@@ -107,6 +107,10 @@ public class DashboardMenuController {
         beMerchantHBox.setOnMouseClicked(event -> {
             loadMenuItem("be_merchant", ActiveDashboardMenuItem.BE_MERCHANT, "Be merchant");
         });
+        userSettingsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("user_settings", ActiveDashboardMenuItem.USER_SETTINGS, "User settings");
+        });
+        logoutHBox.setOnMouseClicked(this::logout);
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
@@ -134,5 +138,9 @@ public class DashboardMenuController {
                 Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in " + fxml + ".fxml");
             }
         }
+    }
+
+    private void logout(MouseEvent event) {
+        // logout...
     }
 }
