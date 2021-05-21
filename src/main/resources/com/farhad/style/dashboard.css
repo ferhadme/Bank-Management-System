@@ -1,0 +1,24 @@
+#dashboard-menu {
+    -fx-background-color: #030617;
+    -fx-padding: 20;
+}
+
+#dashboard-overview {
+    -fx-background-color: #101022;
+}
+
+/* bigger than user login name */
+#user-full-name {
+    -fx-font-size: 18;
+    -fx-text-fill: white;
+}
+
+#user-login-name {
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+}
+
+.dashboard-menu-item-label {
+    -fx-font-size: 15;
+    -fx-text-fill: #444650;
+}
