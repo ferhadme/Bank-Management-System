@@ -1,13 +1,21 @@
 package com.farhad.controllers;
 
+import com.farhad.App;
+import com.farhad.utils.ActiveDashboardMenu;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashboardMenuController {
     @FXML
@@ -82,6 +90,8 @@ public class DashboardMenuController {
                     (HBox) menuItem[0], (Label) menuItem[1], (Separator) menuItem[2]
             );
         }
+        overviewHBox.setOnMouseClicked(this::loadOverView);
+        accountsHBox.setOnMouseClicked(this::loadAccounts);
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
@@ -95,5 +105,18 @@ public class DashboardMenuController {
             separator.setVisible(false);
             hBox.setCursor(Cursor.HAND);
         });
+    }
+
+    private void loadOverView(MouseEvent event) {
+        if (ActiveDashboardMenu.current != ActiveDashboardMenu.OVERVIEW) {
+            try {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/dashboard_overview.fxml"));
+                Parent root = loader.load();
+                App.changeStageTitle("Overview");
+                App.setRoot(root);
+            } catch (IOException e) {
+                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in dashboard_overview.fxml");
+            }
+        }
     }
 }
