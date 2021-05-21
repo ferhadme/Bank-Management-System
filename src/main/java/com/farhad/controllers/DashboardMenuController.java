@@ -98,6 +98,12 @@ public class DashboardMenuController {
         transactionsHBox.setOnMouseClicked(event -> {
             loadMenuItem("transactions", ActiveDashboardMenuItem.TRANSACTIONS, "Transactions");
         });
+        productsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("products", ActiveDashboardMenuItem.PRODUCTS, "Products");
+        });
+        addAccountHBox.setOnMouseClicked(event -> {
+            loadMenuItem("add_account", ActiveDashboardMenuItem.ADD_ACCOUNT, "Add new account");
+        });
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
