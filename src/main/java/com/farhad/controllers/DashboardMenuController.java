@@ -89,8 +89,12 @@ public class DashboardMenuController {
                     (HBox) menuItem[0], (Label) menuItem[1], (Separator) menuItem[2]
             );
         }
-        overviewHBox.setOnMouseClicked(this::loadOverView);
-//        accountsHBox.setOnMouseClicked(this::loadAccounts);
+        overviewHBox.setOnMouseClicked(event -> {
+            loadMenuItem("overview", ActiveDashboardMenuItem.OVERVIEW, "Overview");
+        });
+        accountsHBox.setOnMouseClicked(event -> {
+            loadMenuItem("accounts", ActiveDashboardMenuItem.ACCOUNTS, "Accounts");
+        });
     }
 
     public void addUIInteractionToHBoxAndItsItems(HBox hBox, Label label, Separator separator) {
@@ -106,15 +110,16 @@ public class DashboardMenuController {
         });
     }
 
-    private void loadOverView(MouseEvent event) {
-        if (ActiveDashboardMenuItem.current != ActiveDashboardMenuItem.OVERVIEW) {
+    private void loadMenuItem(String fxml, ActiveDashboardMenuItem menuItem, String stageName) {
+        if (ActiveDashboardMenuItem.current != menuItem) {
             try {
-                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/dashboard_overview.fxml"));
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/" + fxml + ".fxml"));
                 Parent root = loader.load();
-                App.changeStageTitle("Overview");
+                App.changeStageTitle(stageName);
                 App.setRoot(root);
+                ActiveDashboardMenuItem.current = menuItem;
             } catch (IOException e) {
-                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in dashboard_overview.fxml");
+                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in " + fxml + ".fxml");
             }
         }
     }
