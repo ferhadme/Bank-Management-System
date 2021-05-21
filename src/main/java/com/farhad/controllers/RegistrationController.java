@@ -115,17 +115,17 @@ public class RegistrationController {
 
     private boolean checkAllTextFields() {
         if (!phoneNumberRegexValidation()) {
-            AlertUtils.showAlert("Phone number is not correct",
+            AlertUtils.showErrorAlert("Incorrect Input", "Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
         if (!emailRegexValidation()) {
-            AlertUtils.showAlert("Email is not correct",
+            AlertUtils.showErrorAlert("Incorrect Input", "Email is not correct",
                     "Please provide correct email address");
             return false;
         }
         if (!usernameRegexValidation()) {
-            AlertUtils.showAlert("Username is not correct",
+            AlertUtils.showErrorAlert("Incorrect Input", "Username is not correct",
                     "Requirements:\n" +
                             "Length should be greater than or equal to 8\n" +
                             "Username could contain only letters, digits, ., _\n" +
@@ -134,12 +134,12 @@ public class RegistrationController {
             return false;
         }
         if (usernameDBValidation()) {
-            AlertUtils.showAlert("Username is already token",
+            AlertUtils.showErrorAlert("Incorrect Input", "Username is already token",
                     "Please take another username");
             return false;
         }
         if (!passwordValidation()) {
-            AlertUtils.showAlert("Username password is not safe",
+            AlertUtils.showErrorAlert("Incorrect Input", "Username password is not safe",
                     "Safe password policy:\n" +
                             "At least 8 characters\n" +
                             "Contains at least one digit\n" +
@@ -148,7 +148,7 @@ public class RegistrationController {
                             "Does not contain space, tab, etc.");
         }
         if (!passwordConfirmation()) {
-            AlertUtils.showAlert("Confirmation password is not correct",
+            AlertUtils.showErrorAlert("Incorrect Input", "Confirmation password is not correct",
                     "Please provide the same password");
             return false;
         }

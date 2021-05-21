@@ -1,7 +1,10 @@
 package com.farhad.controllers;
 
 import com.farhad.App;
+import com.farhad.database.DatabaseSource;
+import com.farhad.models.Customer;
 import com.farhad.utils.ActiveDashboardMenuItem;
+import com.farhad.utils.AlertUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -17,6 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DashboardMenuController {
+    @FXML
+    private Label userFullNameLabel;
+    @FXML
+    private Label userLoginNameLabel;
+
     @FXML
     private HBox overviewHBox;
     @FXML
@@ -68,8 +76,11 @@ public class DashboardMenuController {
     @FXML
     private Separator logoutSeparator;
 
-
     public void initialize() {
+        Customer customer = DatabaseSource.getInstance().getCustomer();
+        System.out.println(customer.nameProperty());
+        userFullNameLabel.textProperty().bind(customer.nameProperty());
+        userLoginNameLabel.textProperty().bind(customer.loginProperty());
         Object[][] menuItems = new Object[][]{
                 {overviewHBox, overviewLabel, overviewSeparator},
                 {accountsHBox, accountsLabel, accountsSeparator},
@@ -143,6 +154,16 @@ public class DashboardMenuController {
     }
 
     private void logout(MouseEvent event) {
-        System.out.println("User is logout");
+        if (AlertUtils.showConfirmationAlert("Logout", "Do you want to logout?", "")) {
+            try {
+                FXMLLoader loader = new FXMLLoader(App.class.getResource("view/login.fxml"));
+                Parent root = loader.load();
+                App.changeStageTitle("Login");
+                App.setRoot(root);
+                ActiveDashboardMenuItem.current = ActiveDashboardMenuItem.OVERVIEW;
+            } catch (IOException e) {
+                Logger.getLogger("IOException").log(Level.SEVERE, "Error has happened in login.fxml");
+            }
+        }
     }
 }
