@@ -120,7 +120,8 @@ public class LoginController {
     public void login(String username, String password) {
         try {
             if (DatabaseSource.getInstance().usernameExists(username)
-                    && DatabaseSource.getInstance().loginCustomer(username, PBKDF2.generateHashPassword(password))) {
+                    && DatabaseSource.getInstance().verifyCustomerPassword(username, PBKDF2.generateHashPassword(password))) {
+                DatabaseSource.getInstance().loginCustomer(username);
                 loadDashBoardOverview();
             } else {
                 AlertUtils.showErrorAlert("Incorrect Input", "Username or password is incorrect",

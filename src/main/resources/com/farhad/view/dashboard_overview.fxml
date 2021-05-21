@@ -12,10 +12,6 @@
             styleClass="dashboard-root"
             stylesheets="@../style/dashboard.css">
 
-    <top>
-        <Label id="greeting-message" text="Have a nice day" />
-    </top>
-
     <left>
         <fx:include source="dashboard_menu.fxml" />
     </left>

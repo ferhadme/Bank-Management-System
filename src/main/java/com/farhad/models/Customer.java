@@ -10,7 +10,7 @@ public class Customer {
     private StringProperty login;
     private StringProperty password;
     private StringProperty otherDetails;
-    
+
     public Customer(String name, String phoneNumber, String email, String login,
                     String password, String otherDetails) {
         this.name = new SimpleStringProperty(name);
@@ -92,5 +92,10 @@ public class Customer {
 
     public void setOtherDetails(String otherDetails) {
         this.otherDetails.set(otherDetails);
+    }
+
+    @Override
+    public String toString() {
+        return name.toString();
     }
 }

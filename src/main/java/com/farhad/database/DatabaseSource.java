@@ -1,5 +1,7 @@
 package com.farhad.database;
 
+import com.farhad.models.Customer;
+
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +38,10 @@ public class DatabaseSource {
     public static final String COLUMN_OTHER_DETAILS = "other_details";
     public static final String COLUMN_CUSTOMER_TYPE_CODE_FK = "customer_types_code";
 
+    /*
+    models
+     */
+    private Customer customer;
 
     private Connection connection;
 
@@ -43,6 +49,10 @@ public class DatabaseSource {
 
     public static DatabaseSource getInstance() {
         return instance;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     public boolean open() {
@@ -116,7 +126,7 @@ public class DatabaseSource {
         }
     }
 
-    public boolean loginCustomer(String username, String password) {
+    public boolean verifyCustomerPassword(String username, String password) {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT " + COLUMN_CUSTOMER_PASSWORD + " FROM " +
                     TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "';");
@@ -129,4 +139,20 @@ public class DatabaseSource {
         }
         return false;
     }
+
+    public void loginCustomer(String username) {
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_CUSTOMER_NAME + ", " + COLUMN_CUSTOMER_PHONE +
+                    ", " + COLUMN_CUSTOMER_EMAIL + ", " + COLUMN_CUSTOMER_LOGIN + ", " + COLUMN_CUSTOMER_PASSWORD +
+                    ", " + COLUMN_OTHER_DETAILS + " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN +
+                    " = '" + username + "';");
+            rs.next();
+            customer = new Customer(rs.getString(COLUMN_CUSTOMER_NAME), rs.getString(COLUMN_CUSTOMER_PHONE),
+                    rs.getString(COLUMN_CUSTOMER_EMAIL), rs.getString(COLUMN_CUSTOMER_LOGIN),
+                    rs.getString(COLUMN_CUSTOMER_PASSWORD), rs.getString(COLUMN_OTHER_DETAILS));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

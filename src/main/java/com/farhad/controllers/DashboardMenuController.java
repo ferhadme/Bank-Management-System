@@ -1,6 +1,8 @@
 package com.farhad.controllers;
 
 import com.farhad.App;
+import com.farhad.database.DatabaseSource;
+import com.farhad.models.Customer;
 import com.farhad.utils.ActiveDashboardMenuItem;
 import com.farhad.utils.AlertUtils;
 import javafx.fxml.FXML;
@@ -18,6 +20,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DashboardMenuController {
+    @FXML
+    private Label userFullNameLabel;
+    @FXML
+    private Label userLoginNameLabel;
+
     @FXML
     private HBox overviewHBox;
     @FXML
@@ -69,8 +76,11 @@ public class DashboardMenuController {
     @FXML
     private Separator logoutSeparator;
 
-
     public void initialize() {
+        Customer customer = DatabaseSource.getInstance().getCustomer();
+        System.out.println(customer.nameProperty());
+        userFullNameLabel.textProperty().bind(customer.nameProperty());
+        userLoginNameLabel.textProperty().bind(customer.loginProperty());
         Object[][] menuItems = new Object[][]{
                 {overviewHBox, overviewLabel, overviewSeparator},
                 {accountsHBox, accountsLabel, accountsSeparator},

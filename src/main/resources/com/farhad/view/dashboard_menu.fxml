@@ -14,8 +14,8 @@
             <Image url="@../icons/user.png" />
         </ImageView>
         <VBox spacing="5.0" alignment="CENTER_LEFT">
-            <Label id="user-full-name" text="User name"/>
-            <Label id="user-login-name" text="User login name"/>
+            <Label fx:id="userFullNameLabel" id="user-full-name" text="User name"/>
+            <Label fx:id="userLoginNameLabel" id="user-login-name" text="User login name"/>
         </VBox>
     </HBox>
     <Separator />
