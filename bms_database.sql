@@ -62,9 +62,10 @@ create table customers (
 # 7
 create table accounts (
 	account_id int primary key auto_increment,
-    account_name varchar(40),
+    account_name varchar(40) not null,
     date_opened datetime not null default current_timestamp,
 	other_account_details varchar(40),
+    amount_of_money double not null default 0,
     account_type_code int not null,
     customer_id int not null,
     constraint fk_accounts_account_types
@@ -105,7 +106,6 @@ create table transactions (
     date datetime not null default current_timestamp,
     amount_of_transaction float not null,
     other_details varchar(40),
-    purchase_id int not null,
     account_id int not null,
     transaction_type_code int not null,
     constraint fk_transactions_accounts

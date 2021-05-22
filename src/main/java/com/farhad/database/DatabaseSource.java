@@ -101,10 +101,8 @@ public class DatabaseSource {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
                     " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
-            int exist = 0;
-            while (rs.next()) {
-                exist = rs.getInt("is_contain");
-            }
+            rs.next();
+            int exist = rs.getInt("is_contain");
             return exist == 1;
         } catch (SQLException e) {
             e.printStackTrace();
