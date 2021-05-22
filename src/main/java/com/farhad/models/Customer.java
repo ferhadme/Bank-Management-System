@@ -2,6 +2,10 @@ package com.farhad.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.List;
 
 public class Customer {
     private StringProperty name;
@@ -10,15 +14,17 @@ public class Customer {
     private StringProperty login;
     private StringProperty password;
     private StringProperty otherDetails;
+    private ObservableList<Account> accounts;
 
     public Customer(String name, String phoneNumber, String email, String login,
-                    String password, String otherDetails) {
+                    String password, String otherDetails, List<Account> accounts) {
         this.name = new SimpleStringProperty(name);
         this.phoneNumber = new SimpleStringProperty(phoneNumber);
         this.email = new SimpleStringProperty(email);
         this.login = new SimpleStringProperty(login);
         this.password = new SimpleStringProperty(password);
         this.otherDetails = new SimpleStringProperty(otherDetails);
+        this.accounts = FXCollections.observableArrayList(accounts);
     }
 
 
@@ -94,8 +100,7 @@ public class Customer {
         this.otherDetails.set(otherDetails);
     }
 
-    @Override
-    public String toString() {
-        return name.toString();
+    public ObservableList<Account> getAccounts() {
+        return accounts;
     }
 }

@@ -167,14 +167,14 @@ public class RegistrationController {
         return usernameTextField.getText().trim().matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
     }
 
-    private boolean usernameDBValidation() {
-        return DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
-    }
-
     private boolean passwordValidation() {
         return passwordTextField.getText().matches(
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.@#$%^&+=])(?=\\S+$).{8,}$"
         );
+    }
+
+    private boolean usernameDBValidation() {
+        return DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
     }
 
     private boolean passwordConfirmation() {
