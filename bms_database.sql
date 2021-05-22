@@ -1,5 +1,15 @@
 create database bank_management_system;
 
+drop table transactions;
+drop table transaction_types;
+drop table accounts;
+drop table account_types;
+drop table customer_purchases;
+drop table customers;
+drop table customer_types;
+drop table products_and_services;
+drop table merchants;
+
 # 1
 create table customer_types (
 	customer_type_code int primary key,
@@ -31,7 +41,7 @@ create table merchants (
 
 # 5
 create table products_and_services (
-	product_and_service_code int primary key,
+	product_and_service_code varchar(50) primary key,
     product_and_service_description varchar(40),
     merchant_id int not null,
     constraint fk_products_and_services_merchants
@@ -61,7 +71,7 @@ create table customers (
 
 # 7
 create table accounts (
-	account_id varchar(20) primary key,
+	account_id varchar(50) primary key,
     account_name varchar(40),
     date_opened datetime not null default current_timestamp,
 	other_account_details varchar(40),
@@ -87,7 +97,7 @@ create table customer_purchases (
     quantity float not null,
     other_details varchar(40),
     customer_id int not null,
-    product_and_service_code int not null,
+    product_and_service_code varchar(50) not null,
     constraint fk_customer_purchases_customers
     foreign key (customer_id)
     references customers (customer_id)
@@ -107,7 +117,7 @@ create table transactions (
     amount_of_transaction float not null,
     other_details varchar(40),
     purchase_id int not null,
-    account_id varchar(20) not null,
+    account_id varchar(50) not null,
     transaction_type_code int not null,
     constraint fk_transactions_accounts
     foreign key (account_id)
@@ -143,34 +153,6 @@ values (1, 'ATM', 'Deposit or withdraw funds using an ATM'),
 (6, 'POS', 'Withdraw funds through a point-of-sale transaction'),
 (7, 'Transfer', 'Move funds from one account to another'),
 (8, 'Withdrawal', 'Deduct funds from an account by any method');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
