@@ -1,9 +1,12 @@
 package com.farhad.database;
 
+import com.farhad.models.Account;
 import com.farhad.models.Customer;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -119,6 +122,8 @@ public class DatabaseSource {
                     ", " + COLUMN_CUSTOMER_LOGIN + ", " + COLUMN_CUSTOMER_PASSWORD + ", " + COLUMN_OTHER_DETAILS +
                     ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + name + "', '" + phone + "', '" + email +
                     "', '" + login + "', '" + password + "', '" + other_details + "', " + customerTypeCode + ");");
+            // create initial main account
+            createInitMainAccount();
         } catch (SQLException e) {
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
@@ -145,12 +150,24 @@ public class DatabaseSource {
                     ", " + COLUMN_OTHER_DETAILS + " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN +
                     " = '" + username + "';");
             rs.next();
+            List<Account> accounts = getAccountsOfUser(username);
             customer = new Customer(rs.getString(COLUMN_CUSTOMER_NAME), rs.getString(COLUMN_CUSTOMER_PHONE),
                     rs.getString(COLUMN_CUSTOMER_EMAIL), rs.getString(COLUMN_CUSTOMER_LOGIN),
-                    rs.getString(COLUMN_CUSTOMER_PASSWORD), rs.getString(COLUMN_OTHER_DETAILS));
+                    rs.getString(COLUMN_CUSTOMER_PASSWORD), rs.getString(COLUMN_OTHER_DETAILS), accounts);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Account> getAccountsOfUser(String username) {
+        List<Account> accounts = new ArrayList<>();
+        // fetch all accounts and return
+        return accounts;
+    }
+
+    private void createInitMainAccount() {
+        // create init main account
+        // insert it into database
     }
 
 }
