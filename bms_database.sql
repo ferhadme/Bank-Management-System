@@ -45,11 +45,11 @@ create table products_and_services (
 create table customers (
 	customer_id int primary key auto_increment,
     customer_name varchar(40) not null,
-    customer_phone int not null unique,
+    customer_phone varchar(40) not null unique,
     customer_email varchar(40) not null unique,
     date_became_customer datetime not null default current_timestamp,
-    login varchar(40) not null unique,
-    password varchar(40) not null,
+    customer_login varchar(40) not null unique,
+    customer_password varchar(40) not null,
     other_details varchar(40),
     customer_types_code int not null,
     constraint fk_customers_customer_types
@@ -61,12 +61,12 @@ create table customers (
 
 # 7
 create table accounts (
-	account_id int primary key auto_increment,
-    account_name varchar(40) not null,
+	account_id varchar(20) primary key,
+    account_name varchar(40),
     date_opened datetime not null default current_timestamp,
 	other_account_details varchar(40),
-    amount_of_money double not null default 0,
     account_type_code int not null,
+    amount_of_money double not null default 0,
     customer_id int not null,
     constraint fk_accounts_account_types
     foreign key (account_type_code)
@@ -83,7 +83,7 @@ create table accounts (
 # 8
 create table customer_purchases (
 	purchase_id int primary key auto_increment,
-    date datetime not null default current_timestamp,
+    purchase_date datetime not null default current_timestamp,
     quantity float not null,
     other_details varchar(40),
     customer_id int not null,
@@ -103,10 +103,11 @@ create table customer_purchases (
 # 9
 create table transactions (
 	transaction_id int primary key auto_increment,
-    date datetime not null default current_timestamp,
+    transaction_date datetime not null default current_timestamp,
     amount_of_transaction float not null,
     other_details varchar(40),
-    account_id int not null,
+    purchase_id int not null,
+    account_id varchar(20) not null,
     transaction_type_code int not null,
     constraint fk_transactions_accounts
     foreign key (account_id)
@@ -142,11 +143,6 @@ values (1, 'ATM', 'Deposit or withdraw funds using an ATM'),
 (6, 'POS', 'Withdraw funds through a point-of-sale transaction'),
 (7, 'Transfer', 'Move funds from one account to another'),
 (8, 'Withdrawal', 'Deduct funds from an account by any method');
-
-
-
-
-
 
 
 
