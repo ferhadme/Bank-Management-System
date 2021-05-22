@@ -2,6 +2,8 @@ package com.farhad.controllers;
 
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
+import com.farhad.models.Account;
+import com.farhad.models.Customer;
 import com.farhad.security.PBKDF2;
 import com.farhad.utils.AlertUtils;
 import javafx.collections.FXCollections;
@@ -17,6 +19,9 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +48,8 @@ public class RegistrationController {
     private TextField confirmPassTextField;
     @FXML
     private TextField otherDetailsTextField;
+    @FXML
+    private TextField accountIdTextField;
 
     public void initialize() {
         setCustomerTypesChoiceBoxItems();
@@ -75,18 +82,21 @@ public class RegistrationController {
             if (checkAllTextFields()) {
                 String username = usernameTextField.getText().trim();
                 String password = passwordTextField.getText();
-                DatabaseSource.getInstance().signUpCustomer(
-                        fullNameTextField.getText().trim(), replaceWhiteSpaces(phoneTextField.getText().trim()),
-                        emailTextField.getText().trim(), username,
-                        PBKDF2.generateHashPassword(password),
-                        otherDetailsTextField.getText().trim(),
-                        DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue())
-                );
+                DatabaseSource.getInstance().signUpCustomer(new Customer(fullNameTextField.getText().trim(),
+                        modifyPhoneNumber(phoneTextField.getText().trim()), emailTextField.getText().trim(),
+                        username, PBKDF2.generateHashPassword(password), otherDetailsTextField.getText().trim(),
+                        createInitAccount()),
+                        DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue()));
                 loadDashboardOverview(username, password);
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
             Logger.getLogger("Password Hashing Error").log(Level.SEVERE, "Password hashing error has happened");
         }
+    }
+
+    private List<Account> createInitAccount() {
+        return Arrays.asList(new Account(accountIdTextField.getText().trim(), "Main Account", 0,
+                "", new ArrayList<>()));
     }
 
     private void loadDashboardOverview(String username, String password) {
@@ -133,7 +143,15 @@ public class RegistrationController {
                             ". could not appear consecutively");
             return false;
         }
-        if (usernameDBValidation()) {
+        if (!emailDBValidation()) {
+            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
+            return false;
+        }
+        if (!phoneNumberDBValidation()) {
+            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
+            return false;
+        }
+        if (!usernameDBValidation()) {
             AlertUtils.showErrorAlert("Incorrect Input", "Username is already token",
                     "Please take another username");
             return false;
@@ -152,11 +170,15 @@ public class RegistrationController {
                     "Please provide the same password");
             return false;
         }
+        if (accountIdRegexValidation()) {
+            AlertUtils.showErrorAlert("Incorrect Input", "Account ID is not correct",
+                    "Be sure you're entering right account information");
+        }
         return true;
     }
 
     private boolean phoneNumberRegexValidation() {
-        return replaceWhiteSpaces(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
+        return modifyPhoneNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
 
     private boolean emailRegexValidation() {
@@ -173,16 +195,31 @@ public class RegistrationController {
         );
     }
 
+    private boolean phoneNumberDBValidation() {
+        return !DatabaseSource.getInstance().customerDataExists(modifyPhoneNumber(phoneTextField.getText().trim()),
+                DatabaseSource.COLUMN_CUSTOMER_PHONE);
+    }
+
+    private boolean emailDBValidation() {
+        return !DatabaseSource.getInstance().customerDataExists(emailTextField.getText().trim(),
+                DatabaseSource.COLUMN_CUSTOMER_EMAIL);
+    }
+
     private boolean usernameDBValidation() {
-        return DatabaseSource.getInstance().usernameExists(usernameTextField.getText().trim());
+        return !DatabaseSource.getInstance().customerDataExists(usernameTextField.getText().trim(),
+                DatabaseSource.COLUMN_CUSTOMER_LOGIN);
     }
 
     private boolean passwordConfirmation() {
         return passwordTextField.getText().equals(confirmPassTextField.getText());
     }
 
-    private String replaceWhiteSpaces(String str) {
-        return str.replaceAll("\\s", "");
+    private boolean accountIdRegexValidation() {
+        return accountIdTextField.getText().trim().matches("\\d{16}");
+    }
+
+    private String modifyPhoneNumber(String str) {
+        return str.replaceAll("\\s", "").replaceAll("-", "");
     }
 
 

@@ -103,4 +103,17 @@ public class Customer {
     public ObservableList<Account> getAccounts() {
         return accounts;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name=" + name +
+                ", phoneNumber=" + phoneNumber +
+                ", email=" + email +
+                ", login=" + login +
+                ", password=" + password +
+                ", otherDetails=" + otherDetails +
+                ", accounts=" + accounts +
+                '}';
+    }
 }

@@ -4,35 +4,25 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Transaction {
-    private StringProperty accountId;
-    private StringProperty otherDetails;
+    private final String accountId;
+    private final String otherDetails;
+    private final String destinationAccountId;
 
-    public Transaction(String accountId, String otherDetails) {
-        this.accountId = new SimpleStringProperty(accountId);
-        this.otherDetails = new SimpleStringProperty(otherDetails);
+    public Transaction(String accountId, String destinationAccountId, String otherDetails) {
+        this.accountId = accountId;
+        this.destinationAccountId = destinationAccountId;
+        this.otherDetails = otherDetails;
     }
 
     public String getAccountId() {
-        return accountId.get();
-    }
-
-    public StringProperty accountIdProperty() {
         return accountId;
     }
 
-    public void setAccountId(String accountId) {
-        this.accountId.set(accountId);
-    }
-
     public String getOtherDetails() {
-        return otherDetails.get();
-    }
-
-    public StringProperty otherDetailsProperty() {
         return otherDetails;
     }
 
-    public void setOtherDetails(String otherDetails) {
-        this.otherDetails.set(otherDetails);
+    public String getDestinationAccountId() {
+        return destinationAccountId;
     }
 }

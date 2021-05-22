@@ -16,7 +16,7 @@ public class Account {
     private DoubleProperty amountOfMoney;
     private ObservableList<Transaction> transactions;
 
-    public Account(String accountId, String accountName, String otherAccountDetails, double amountOfMoney,
+    public Account(String accountId, String accountName, double amountOfMoney, String otherAccountDetails,
                    List<Transaction> transactions) {
         this.accountId = new SimpleStringProperty(accountId);
         this.accountName = new SimpleStringProperty(accountName);
@@ -75,5 +75,16 @@ public class Account {
 
     public ObservableList<Transaction> getTransactions() {
         return transactions;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", accountName=" + accountName +
+                ", otherAccountDetails=" + otherAccountDetails +
+                ", amountOfMoney=" + amountOfMoney +
+                ", transactions=" + transactions +
+                '}';
     }
 }

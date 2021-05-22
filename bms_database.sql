@@ -1,14 +1,14 @@
 create database bank_management_system;
 
-drop table transactions;
-drop table transaction_types;
-drop table accounts;
-drop table account_types;
-drop table customer_purchases;
-drop table customers;
-drop table customer_types;
-drop table products_and_services;
-drop table merchants;
+-- drop table transactions;
+-- drop table transaction_types;
+-- drop table accounts;
+-- drop table account_types;
+-- drop table customer_purchases;
+-- drop table customers;
+-- drop table customer_types;
+-- drop table products_and_services;
+-- drop table merchants;
 
 # 1
 create table customer_types (
@@ -116,8 +116,8 @@ create table transactions (
     transaction_date datetime not null default current_timestamp,
     amount_of_transaction float not null,
     other_details varchar(40),
-    purchase_id int not null,
     account_id varchar(50) not null,
+    destination_account_id varchar(50) not null,
     transaction_type_code int not null,
     constraint fk_transactions_accounts
     foreign key (account_id)
@@ -130,6 +130,9 @@ create table transactions (
     on delete cascade
     on update cascade
 );
+
+alter table transactions
+add column destination_account_id varchar(50) not null;
 
 insert into customer_types (customer_type_code, customer_type_name, customer_type_description)
 values (1, 'Minor', 'A minor is someone who is under the age of 18'),

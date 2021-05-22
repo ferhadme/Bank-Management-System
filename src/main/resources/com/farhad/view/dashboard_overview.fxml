@@ -27,15 +27,11 @@
                     <Label text="Main Account" />
                     <HBox>
                         <Label text="Account name: "/>
-                        <Label fx:id="accountName" text="User User"/>
+                        <Label fx:id="accountId" text="User User"/>
                     </HBox>
                     <HBox>
                         <Label text="Account type: "/>
-                        <Label fx:id="accountType" text="VIP" />
-                    </HBox>
-                    <HBox>
-                        <Label text="Date opened: " />
-                        <Label fx:id="dateOpened" text="20.12.2019" />
+                        <Label fx:id="accountName" text="VIP" />
                     </HBox>
                     <HBox>
                         <Label text="Amount of money: " />

@@ -50,6 +50,10 @@
                     <PasswordField fx:id="confirmPassTextField" styleClass="text-field"/>
                 </HBox>
                 <HBox spacing="5.0" alignment="CENTER">
+                    <Label styleClass="label" text="Main Account ID:" />
+                    <TextField fx:id="accountIdTextField" styleClass="text-field" />
+                </HBox>
+                <HBox spacing="5.0" alignment="CENTER">
                     <Label styleClass="label" text="Other Details:" />
                     <TextField fx:id="otherDetailsTextField" styleClass="text-field"/>
                 </HBox>
