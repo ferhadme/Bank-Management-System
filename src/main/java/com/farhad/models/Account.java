@@ -1,13 +1,29 @@
 package com.farhad.models;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.List;
 
 public class Account {
     private StringProperty accountId;
     private StringProperty accountName;
     private StringProperty otherAccountDetails;
     private DoubleProperty amountOfMoney;
+    private ObservableList<Transaction> transactions;
+
+    public Account(String accountId, String accountName, String otherAccountDetails, double amountOfMoney,
+                   List<Transaction> transactions) {
+        this.accountId = new SimpleStringProperty(accountId);
+        this.accountName = new SimpleStringProperty(accountName);
+        this.otherAccountDetails = new SimpleStringProperty(otherAccountDetails);
+        this.amountOfMoney = new SimpleDoubleProperty(amountOfMoney);
+        this.transactions = FXCollections.observableArrayList(transactions);
+    }
 
     public String getAccountId() {
         return accountId.get();
@@ -55,5 +71,9 @@ public class Account {
 
     public void setAmountOfMoney(double amountOfMoney) {
         this.amountOfMoney.set(amountOfMoney);
+    }
+
+    public ObservableList<Transaction> getTransactions() {
+        return transactions;
     }
 }
