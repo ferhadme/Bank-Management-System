@@ -75,3 +75,63 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;
 }
+
+#add-account-header {
+    -fx-text-fill: white;
+    -fx-font-size: 50;
+}
+
+.add-account-labels {
+    -fx-text-fill: white;
+    -fx-text-style: bold;
+    -fx-min-width: 170;
+}
+
+.add-account-text-fields {
+    -fx-min-width: 250;
+    -fx-min-height: 30;
+}
+
+#add-account-btn {
+    -fx-min-width: 100;
+    -fx-min-height: 30;
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#update-customer-header {
+    -fx-text-fill: white;
+    -fx-font-size: 50;
+}
+
+.update-customer-labels {
+    -fx-text-fill: white;
+    -fx-text-style: bold;
+    -fx-min-width: 100;
+}
+
+.update-customer-text-fields {
+    -fx-min-width: 250;
+    -fx-min-height: 30;
+}
+
+#change-password-btn {
+    -fx-background-color: yellow;
+}
+
+#update-customer-btn {
+    -fx-min-width: 100;
+    -fx-min-height: 30;
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;    
+}

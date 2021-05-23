@@ -16,6 +16,39 @@
     </left>
 
     <center>
-        <Label text="User Settings" />
+        <VBox spacing="100.0" alignment="CENTER">
+            <Label id="update-customer-header" text="Update your settings" />
+            <VBox spacing="25.0">
+                <VBox spacing="15.0" alignment="CENTER">
+                    <HBox alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Name: " />
+                        <TextField styleClass="update-customer-text-fields" fx:id="customerNameTextField"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Phone number: " />
+                        <TextField styleClass="update-customer-text-fields" fx:id="customerPhoneNumberTextField" />
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Email: " />
+                        <TextField styleClass="update-customer-text-fields" fx:id="customerEmailTextField"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Login: " />
+                        <TextField styleClass="update-customer-text-fields" fx:id="customerLoginTextField"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Other details: " />
+                        <TextField styleClass="update-customer-text-fields" fx:id="otherDetailsTextField" />
+                    </HBox>
+                    <Separator fx:id="topSeparator" maxWidth="200.0" />
+                    <HBox spacing="15.0" alignment="CENTER">
+                        <Label styleClass="update-customer-labels" text="Change your password: " />
+                        <Button id="change-password-btn" text="Change" fx:id="changePasswordBtn"/>
+                    </HBox>
+                    <Separator fx:id="bottomSeparator" maxWidth="200.0" />
+                    <Button fx:id="updateCustomerInfoBtn" id="update-customer-btn" text="Submit"/>
+                </VBox>
+            </VBox>
+        </VBox>
     </center>
 </BorderPane>

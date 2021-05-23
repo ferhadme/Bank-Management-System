@@ -61,6 +61,7 @@ public class DatabaseSource {
     public static final String COLUMN_ACCOUNT_OTHER_DETAILS = "other_account_details";
     public static final String COLUMN_AMOUNT_OF_MONEY = "amount_of_money";
     public static final String COLUMN_CUSTOMER_ID = "customer_id";
+    public static final int ACCOUNT_TYPE_CODE = 1;
 
     /*
     transactions table
@@ -287,6 +288,19 @@ public class DatabaseSource {
                     COLUMN_OTHER_DETAILS + ") VALUES ('" + transaction.getAccountId() + "', '" + transaction.getDestinationAccountId() +
                     "', " + TRANSACTION_TYPE_CODE + ", " + transaction.getAmountOfTransaction() + ", '" + transaction.getOtherDetails() +
                     "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createNewAccount(Account account) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("INSERT INTO " + TABLE_ACCOUNTS + "(" + COLUMN_ACCOUNT_ID + ", " + COLUMN_ACCOUNT_NAME +
+                    ", " + COLUMN_ACCOUNT_OTHER_DETAILS + ", " + COLUMN_ACCOUNT_TYPE_CODE + ", " + COLUMN_AMOUNT_OF_MONEY +
+                    ", " + COLUMN_CUSTOMER_ID + ") VALUES ('" + account.getAccountId() + "', '" + account.getAccountName() +
+                    "', '" + account.getOtherAccountDetails() + "', " + ACCOUNT_TYPE_CODE + ", " + account.getAmountOfMoney() +
+                    ", (SELECT " + COLUMN_CUSTOMER_ID + " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN +
+                    "='" + customer.getLogin() + "'));");
         } catch (SQLException e) {
             e.printStackTrace();
         }
