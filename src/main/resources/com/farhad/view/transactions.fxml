@@ -16,6 +16,25 @@
     </left>
 
     <center>
-        <Label text="Transactions" />
+        <VBox spacing="100.0" alignment="CENTER">
+            <Label id="make-transaction-header" text="Make Transaction" />
+            <VBox spacing="25.0">
+                <VBox spacing="15.0" alignment="CENTER">
+                    <HBox alignment="CENTER">
+                        <Label styleClass="make-transaction-labels" text="Choose your account: " />
+                        <ChoiceBox id="make-transaction-choice-box" fx:id="accountChoiceBox"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="make-transaction-labels" text="Destination Account Id: " />
+                        <TextField styleClass="make-transaction-text-fields" fx:id="destAccountIdTextField" />
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="make-transaction-labels" text="Amount of money: " />
+                        <TextField styleClass="make-transaction-text-fields" fx:id="amountOfMoneyTextField"/>
+                    </HBox>
+                    <Button fx:id="submitTransactionBtn" id="submit-transaction-btn" text="Submit"/>
+                </VBox>
+            </VBox>
+        </VBox>
     </center>
 </BorderPane>

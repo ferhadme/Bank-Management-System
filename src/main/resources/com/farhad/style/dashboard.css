@@ -28,12 +28,50 @@
     -fx-font-size: 35;
 }
 
-.dashboard-overview-key {
+.account-label-key {
     -fx-text-fill: #949deb;
-    -fx-text-size: 30;
+    -fx-text-size: 40;
 }
 
-.dashboard-overview-value {
+.account-label-value {
     -fx-text-fill: white;
-    -fx-text-size: 30;
+    -fx-text-size: 40;
+}
+
+.account-table-header {
+    -fx-text-fill: white;
+    -fx-font-size: 30;
+}
+
+#make-transaction-header {
+    -fx-text-fill: white;
+    -fx-font-size: 50;
+}
+
+.make-transaction-labels {
+    -fx-text-fill: white;
+    -fx-text-style: bold;
+    -fx-min-width: 170;
+}
+
+.make-transaction-text-fields {
+    -fx-min-width: 250;
+    -fx-min-height: 30;
+}
+
+#make-transaction-choice-box {
+    -fx-min-width: 220;
+    -fx-text-fill: black;
+}
+   
+#submit-transaction-btn {
+    -fx-min-width: 100;
+    -fx-min-height: 30;
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
 }

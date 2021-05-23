@@ -30,20 +30,20 @@
                 </HBox>
                 <Region minWidth="30.0"/>
                 <HBox alignment="CENTER">
-                    <Label styleClass="dashboard-overview-key" text="Account Id: "/>
-                    <Label styleClass="dashboard-overview-value" fx:id="accountId" text="User User"/>
+                    <Label styleClass="account-label-key" text="Account Id: "/>
+                    <Label styleClass="account-label-value" fx:id="accountId" text="User User"/>
                 </HBox>
                 <HBox alignment="CENTER">
-                    <Label styleClass="dashboard-overview-key" text="Account name: "/>
-                    <Label styleClass="dashboard-overview-value" fx:id="accountName" text="VIP" />
+                    <Label styleClass="account-label-key" text="Account name: "/>
+                    <Label styleClass="account-label-value" fx:id="accountName" text="VIP" />
                 </HBox>
                 <HBox alignment="CENTER">
-                    <Label styleClass="dashboard-overview-key" text="Amount of money: " />
-                    <Label styleClass="dashboard-overview-value" fx:id="amountOfMoney" text="0$" />
+                    <Label styleClass="account-label-key" text="Amount of money: " />
+                    <Label styleClass="account-label-value" fx:id="amountOfMoney" text="0$" />
                 </HBox>
                 <HBox alignment="CENTER">
-                    <Label styleClass="dashboard-overview-key" text="Other account details: " />
-                    <Label styleClass="dashboard-overview-value" fx:id="otherAccountDetails" text="Account details"/>
+                    <Label styleClass="account-label-key" text="Other account details: " />
+                    <Label styleClass="account-label-value" fx:id="otherAccountDetails" text="Account details"/>
                 </HBox>
             </VBox>
         </VBox>

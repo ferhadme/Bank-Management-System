@@ -8,4 +8,6 @@ module com.farhad {
     opens com.farhad.controllers to javafx.fxml;
     exports com.farhad;
     opens com.farhad to javafx.fxml;
+    exports com.farhad.models;
+    opens com.farhad.models to javafx.base;
 }

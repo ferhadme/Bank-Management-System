@@ -83,7 +83,7 @@ public class RegistrationController {
                 String username = usernameTextField.getText().trim();
                 String password = passwordTextField.getText();
                 DatabaseSource.getInstance().signUpCustomer(new Customer(fullNameTextField.getText().trim(),
-                        modifyPhoneNumber(phoneTextField.getText().trim()), emailTextField.getText().trim(),
+                        modifyNumber(phoneTextField.getText().trim()), emailTextField.getText().trim(),
                         username, PBKDF2.generateHashPassword(password), otherDetailsTextField.getText().trim(),
                         createInitAccount()),
                         DatabaseSource.CUSTOMER_TYPE_KEY_VALUE.get(customerTypesChoiceBox.getValue()));
@@ -95,7 +95,7 @@ public class RegistrationController {
     }
 
     private List<Account> createInitAccount() {
-        return Arrays.asList(new Account(accountIdTextField.getText().trim(), "Main Account", 0,
+        return Arrays.asList(new Account(modifyNumber(accountIdTextField.getText().trim()), "Main Account", 0,
                 "", new ArrayList<>(), new ArrayList<>()));
     }
 
@@ -178,7 +178,7 @@ public class RegistrationController {
     }
 
     private boolean phoneNumberRegexValidation() {
-        return modifyPhoneNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
+        return modifyNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
 
     private boolean emailRegexValidation() {
@@ -196,7 +196,7 @@ public class RegistrationController {
     }
 
     private boolean phoneNumberDBValidation() {
-        return !DatabaseSource.getInstance().customerDataExists(modifyPhoneNumber(phoneTextField.getText().trim()),
+        return !DatabaseSource.getInstance().customerDataExists(modifyNumber(phoneTextField.getText().trim()),
                 DatabaseSource.COLUMN_CUSTOMER_PHONE);
     }
 
@@ -218,9 +218,8 @@ public class RegistrationController {
         return accountIdTextField.getText().trim().matches("\\d{16}");
     }
 
-    private String modifyPhoneNumber(String str) {
-        return str.replaceAll("\\s", "").replaceAll("-", "");
+    private String modifyNumber(String str) {
+        return str.replaceAll("(\\s|-)*", "");
     }
-
 
 }

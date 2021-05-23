@@ -16,6 +16,40 @@
     </left>
 
     <center>
-        <Label text="Accounts" />
+        <BorderPane>
+            <left>
+                <ListView fx:id="accountsListView" prefWidth="300.0" minWidth="150.0" />
+            </left>
+            <center>
+                <VBox spacing="50.0">
+                    <VBox fx:id="accountInfoVBox" spacing="10.0">
+                        <HBox alignment="CENTER">
+                            <Label styleClass="account-label-key" text="Account Id: " />
+                            <Label styleClass="account-label-value" fx:id="accountIdLabel" />
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <Label styleClass="account-label-key" text="Account name: " />
+                            <Label styleClass="account-label-value" fx:id="accountNameLabel" />
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <Label styleClass="account-label-key" text="Other details: " />
+                            <Label styleClass="account-label-value" fx:id="otherDetailsLabel" />
+                        </HBox>
+                        <HBox alignment="CENTER">
+                            <Label styleClass="account-label-key" text="Amount of money: " />
+                            <Label styleClass="account-label-value" fx:id="amountOfMoney" />
+                        </HBox>
+                    </VBox>
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="account-table-header" text="Incomes" />
+                        <TableView fx:id="incomes" prefWidth="650.0" minWidth="150.0"/>
+                    </VBox>
+                    <VBox spacing="5.0" alignment="CENTER">
+                        <Label styleClass="account-table-header" text="Outcomes" />
+                        <TableView fx:id="outcomes" prefWidth="650.0" minWidth="150.0"/>
+                    </VBox>
+                </VBox>
+            </center>
+        </BorderPane>
     </center>
 </BorderPane>
