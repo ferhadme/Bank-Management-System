@@ -68,6 +68,8 @@ public class DatabaseSource {
     public static final String TABLE_TRANSACTIONS = "transactions";
     public static final String COLUMN_DEST_ACCOUNT_ID = "destination_account_id";
     public static final String COLUMN_AMOUNT_OF_TRANSACTION = "amount_of_transaction";
+    public static final String COLUMN_TRANSACTION_TYPE_CODE = "transaction_type_code";
+    public static final String TRANSACTION_TYPE_CODE = "5";
 
     /*
     models
@@ -276,6 +278,18 @@ public class DatabaseSource {
             e.printStackTrace();
         }
         return transactions;
+    }
+
+    public void makeTransaction(Transaction transaction) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("INSERT INTO " + TABLE_TRANSACTIONS + "(" + COLUMN_ACCOUNT_ID + ", " +
+                    COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_TRANSACTION_TYPE_CODE + ", " + COLUMN_AMOUNT_OF_TRANSACTION + ", " +
+                    COLUMN_OTHER_DETAILS + ") VALUES ('" + transaction.getAccountId() + "', '" + transaction.getDestinationAccountId() +
+                    "', " + TRANSACTION_TYPE_CODE + ", " + transaction.getAmountOfTransaction() + ", '" + transaction.getOtherDetails() +
+                    "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

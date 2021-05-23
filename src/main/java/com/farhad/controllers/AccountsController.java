@@ -6,9 +6,10 @@ import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
 import com.farhad.utils.TableViewUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
+import javafx.geometry.Insets;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class AccountsController {
     @FXML
@@ -28,12 +29,17 @@ public class AccountsController {
     @FXML
     private TableView<Transaction> outcomes;
 
+    @FXML
+    private VBox accountInfoVBox;
+
     private Customer customer;
 
     public void initialize() {
+        VBox.setMargin(accountInfoVBox, new Insets(20, 0, 0, 0));
         customer = DatabaseSource.getInstance().getCustomer();
         TableViewUtils.constructIncomeAndOutcomeTableViews(incomes, outcomes);
         accountsListView.setItems(customer.getAccounts());
+        accountsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         accountsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldItem, newItem) -> {
             if (newItem != null) {
                 accountIdLabel.textProperty().bind(newItem.accountIdProperty());
@@ -42,6 +48,17 @@ public class AccountsController {
                 amountOfMoney.textProperty().bind(newItem.amountOfMoneyProperty().asString());
                 incomes.setItems(newItem.getIncomes());
                 outcomes.setItems(newItem.getOutcomes());
+            }
+        });
+        accountsListView.setCellFactory(param -> new ListCell<>() {
+            @Override
+            protected void updateItem(Account item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    setText(item.getAccountName());
+                }
             }
         });
     }
