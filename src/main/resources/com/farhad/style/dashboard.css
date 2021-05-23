@@ -25,7 +25,7 @@
 .dashboard-overview-header {
     -fx-text-fill: white;
     -fx-text-style: bold;
-    -fx-font-size: 50;
+    -fx-font-size: 35;
 }
 
 .dashboard-overview-key {

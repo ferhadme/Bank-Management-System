@@ -32,11 +32,7 @@ public class DashboardMenuController {
     @FXML
     private HBox transactionsHBox;
     @FXML
-    private HBox productsHBox;
-    @FXML
     private HBox addAccountHBox;
-    @FXML
-    private HBox beMerchantHBox;
     @FXML
     private HBox userSettingsHBox;
     @FXML
@@ -49,11 +45,7 @@ public class DashboardMenuController {
     @FXML
     private Label transactionsLabel;
     @FXML
-    private Label productsLabel;
-    @FXML
     private Label addAccountLabel;
-    @FXML
-    private Label beMerchantLabel;
     @FXML
     private Label userSettingsLabel;
     @FXML
@@ -66,11 +58,7 @@ public class DashboardMenuController {
     @FXML
     private Separator transactionsSeparator;
     @FXML
-    private Separator productsSeparator;
-    @FXML
     private Separator addAccountSeparator;
-    @FXML
-    private Separator beMerchantSeparator;
     @FXML
     private Separator userSettingsSeparator;
     @FXML
@@ -85,9 +73,7 @@ public class DashboardMenuController {
                 {overviewHBox, overviewLabel, overviewSeparator},
                 {accountsHBox, accountsLabel, accountsSeparator},
                 {transactionsHBox, transactionsLabel, transactionsSeparator},
-                {productsHBox, productsLabel, productsSeparator},
                 {addAccountHBox, addAccountLabel, addAccountSeparator},
-                {beMerchantHBox, beMerchantLabel, beMerchantSeparator},
                 {userSettingsHBox, userSettingsLabel, userSettingsSeparator},
                 {logoutHBox, logoutLabel, logoutSeparator}
         };
@@ -109,14 +95,8 @@ public class DashboardMenuController {
         transactionsHBox.setOnMouseClicked(event -> {
             loadMenuItem("transactions", ActiveDashboardMenuItem.TRANSACTIONS, "Transactions");
         });
-        productsHBox.setOnMouseClicked(event -> {
-            loadMenuItem("products", ActiveDashboardMenuItem.PRODUCTS, "Products");
-        });
         addAccountHBox.setOnMouseClicked(event -> {
             loadMenuItem("add_account", ActiveDashboardMenuItem.ADD_ACCOUNT, "Add new account");
-        });
-        beMerchantHBox.setOnMouseClicked(event -> {
-            loadMenuItem("be_merchant", ActiveDashboardMenuItem.BE_MERCHANT, "Be merchant");
         });
         userSettingsHBox.setOnMouseClicked(event -> {
             loadMenuItem("user_settings", ActiveDashboardMenuItem.USER_SETTINGS, "User settings");
