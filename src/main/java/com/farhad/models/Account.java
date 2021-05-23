@@ -82,4 +82,9 @@ public class Account {
     public ObservableList<Transaction> getOutcomes() {
         return outcomes;
     }
+
+    @Override
+    public String toString() {
+        return getAccountName();
+    }
 }

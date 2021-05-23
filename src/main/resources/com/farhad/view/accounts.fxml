@@ -16,6 +16,28 @@
     </left>
 
     <center>
-        <Label text="Accounts" />
+        <HBox>
+            <ListView fx:id="accountsListView"/>
+            <VBox>
+                <HBox>
+                    <Label text="Account Id: " />
+                    <Label fx:id="accountIdLabel" />
+                </HBox>
+                <HBox>
+                    <Label text="Account name: " />
+                    <Label fx:id="accountNameLabel" />
+                </HBox>
+                <HBox>
+                    <Label text="Other details: " />
+                    <Label fx:id="otherDetailsLabel" />
+                </HBox>
+                <HBox>
+                    <Label text="Amount of money: " />
+                    <Label fx:id="amountOfMoney" />
+                </HBox>
+                <TableView fx:id="incomes" />
+                <TableView fx:id="outcomes" />
+            </VBox>
+        </HBox>
     </center>
 </BorderPane>
