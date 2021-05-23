@@ -199,7 +199,6 @@ public class DatabaseSource {
                     " = '" + username + "';");
             rs.next();
             List<Account> accounts = getAccountsOfUser(username);
-            System.out.println("Accounts : \n" + accounts);
             customer = new Customer(rs.getString(COLUMN_CUSTOMER_NAME), rs.getString(COLUMN_CUSTOMER_PHONE),
                     rs.getString(COLUMN_CUSTOMER_EMAIL), rs.getString(COLUMN_CUSTOMER_LOGIN),
                     rs.getString(COLUMN_CUSTOMER_PASSWORD), rs.getString(COLUMN_OTHER_DETAILS), accounts);
@@ -215,7 +214,6 @@ public class DatabaseSource {
                     ", " + COLUMN_AMOUNT_OF_MONEY + ", " + COLUMN_ACCOUNT_OTHER_DETAILS + " FROM " +
                     TABLE_ACCOUNTS + " WHERE " + COLUMN_CUSTOMER_ID + " = (SELECT " + COLUMN_CUSTOMER_ID +
                     " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "');");
-            // FIXME: 5/23/21 this loop is not executed...
             while (rs.next()) {
                 List<Transaction> transactions = getTransactionsOfAccount(rs.getString(COLUMN_ACCOUNT_ID));
                 accounts.add(new Account(rs.getString(COLUMN_ACCOUNT_ID), rs.getString(COLUMN_ACCOUNT_NAME),

@@ -7,7 +7,6 @@
     -fx-background-color: #101022;
 }
 
-/* bigger than user login name */
 #user-full-name {
     -fx-font-size: 18;
     -fx-text-fill: white;
@@ -23,7 +22,18 @@
     -fx-text-fill: #444650;
 }
 
-#greeting-message {
-    -fx-font-size: 30;
+.dashboard-overview-header {
     -fx-text-fill: white;
+    -fx-text-style: bold;
+    -fx-font-size: 50;
+}
+
+.dashboard-overview-key {
+    -fx-text-fill: #949deb;
+    -fx-text-size: 30;
+}
+
+.dashboard-overview-value {
+    -fx-text-fill: white;
+    -fx-text-size: 30;
 }

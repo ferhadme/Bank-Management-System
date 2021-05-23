@@ -17,40 +17,46 @@
     </left>
 
     <center>
-        <VBox alignment="CENTER">
-            <HBox>
+        <VBox spacing="100.0" alignment="CENTER">
+            <HBox alignment="CENTER">
                 <TableView fx:id="outcomes"/>
                 <TableView fx:id="incomes"/>
             </HBox>
-            <HBox>
-                <VBox>
-                    <Label text="Main Account" />
-                    <HBox>
-                        <Label text="Account name: "/>
-                        <Label fx:id="accountId" text="User User"/>
+            <HBox spacing="50.0" alignment="CENTER">
+                <VBox spacing="5.0" alignment="TOP_CENTER">
+                    <HBox alignment="CENTER">
+                        <Label styleClass="dashboard-overview-header" text="Main Account" />
                     </HBox>
-                    <HBox>
-                        <Label text="Account type: "/>
-                        <Label fx:id="accountName" text="VIP" />
+                    <Region minWidth="30.0"/>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Account name: "/>
+                        <Label styleClass="dashboard-overview-value" fx:id="accountId" text="User User"/>
                     </HBox>
-                    <HBox>
-                        <Label text="Amount of money: " />
-                        <Label fx:id="amountOfMoney" text="0$" />
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Account type: "/>
+                        <Label styleClass="dashboard-overview-value" fx:id="accountName" text="VIP" />
                     </HBox>
-                    <HBox>
-                        <Label text="Other account details" />
-                        <Label fx:id="otherAccountDetails" text="Account details"/>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Amount of money: " />
+                        <Label styleClass="dashboard-overview-value" fx:id="amountOfMoney" text="0$" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Other account details: " />
+                        <Label styleClass="dashboard-overview-value" fx:id="otherAccountDetails" text="Account details"/>
                     </HBox>
                 </VBox>
-                <VBox>
-                    <Label text="Last product" />
-                    <HBox>
-                        <Label text="Product code: "/>
-                        <Label fx:id="productCode" text="1111" />
+                <VBox spacing="5.0" alignment="TOP_CENTER">
+                    <HBox alignment="CENTER">
+                        <Label styleClass="dashboard-overview-header" text="Last Product" />
                     </HBox>
-                    <HBox>
-                        <Label text="Product description: " />
-                        <Label fx:id="productDesc" text="Product description" />
+                    <Region minWidth="30.0" />
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Product code: "/>
+                        <Label styleClass="dashboard-overview-value" fx:id="productCode" text="1111" />
+                    </HBox>
+                    <HBox alignment="CENTER_LEFT">
+                        <Label styleClass="dashboard-overview-key" text="Product description: " />
+                        <Label styleClass="dashboard-overview-value" fx:id="productDesc" text="Product description" />
                     </HBox>
                 </VBox>
             </HBox>
