@@ -96,7 +96,7 @@ public class RegistrationController {
 
     private List<Account> createInitAccount() {
         return Arrays.asList(new Account(accountIdTextField.getText().trim(), "Main Account", 0,
-                "", new ArrayList<>()));
+                "", new ArrayList<>(), new ArrayList<>()));
     }
 
     private void loadDashboardOverview(String username, String password) {

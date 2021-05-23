@@ -46,14 +46,6 @@
             <Region HBox.hgrow="ALWAYS" />
             <Separator fx:id="transactionsSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
-        <HBox fx:id="productsHBox" spacing="10.0" alignment="CENTER">
-            <ImageView>
-                <Image url="@../icons/products.png" />
-            </ImageView>
-            <Label fx:id="productsLabel" styleClass="dashboard-menu-item-label" text="Your Products"/>
-            <Region HBox.hgrow="ALWAYS" />
-            <Separator fx:id="productsSeparator" orientation="VERTICAL" visible="false"/>
-        </HBox>
     </VBox>
     <Separator />
 
@@ -66,14 +58,6 @@
             <Label fx:id="addAccountLabel" styleClass="dashboard-menu-item-label" text="Add New Account" />
             <Region HBox.hgrow="ALWAYS" />
             <Separator fx:id="addAccountSeparator" orientation="VERTICAL" visible="false"/>
-        </HBox>
-        <HBox fx:id="beMerchantHBox" spacing="10.0" alignment="CENTER">
-            <ImageView>
-                <Image url="@../icons/merchant.png" />
-            </ImageView>
-            <Label fx:id="beMerchantLabel" styleClass="dashboard-menu-item-label" text="Be Merchant"/>
-            <Region HBox.hgrow="ALWAYS" />
-            <Separator fx:id="beMerchantSeparator" orientation="VERTICAL" visible="false"/>
         </HBox>
         <HBox fx:id="userSettingsHBox" spacing="10.0" alignment="CENTER">
             <ImageView>

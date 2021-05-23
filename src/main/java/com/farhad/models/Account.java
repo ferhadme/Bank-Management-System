@@ -14,15 +14,17 @@ public class Account {
     private StringProperty accountName;
     private StringProperty otherAccountDetails;
     private DoubleProperty amountOfMoney;
-    private ObservableList<Transaction> transactions;
+    private ObservableList<Transaction> incomes;
+    private ObservableList<Transaction> outcomes;
 
     public Account(String accountId, String accountName, double amountOfMoney, String otherAccountDetails,
-                   List<Transaction> transactions) {
+                   List<Transaction> incomes, List<Transaction> outcomes) {
         this.accountId = new SimpleStringProperty(accountId);
         this.accountName = new SimpleStringProperty(accountName);
         this.otherAccountDetails = new SimpleStringProperty(otherAccountDetails);
         this.amountOfMoney = new SimpleDoubleProperty(amountOfMoney);
-        this.transactions = FXCollections.observableArrayList(transactions);
+        this.incomes = FXCollections.observableArrayList(incomes);
+        this.outcomes = FXCollections.observableArrayList(outcomes);
     }
 
     public String getAccountId() {
@@ -73,18 +75,11 @@ public class Account {
         this.amountOfMoney.set(amountOfMoney);
     }
 
-    public ObservableList<Transaction> getTransactions() {
-        return transactions;
+    public ObservableList<Transaction> getIncomes() {
+        return incomes;
     }
 
-    @Override
-    public String toString() {
-        return "Account{" +
-                "accountId=" + accountId +
-                ", accountName=" + accountName +
-                ", otherAccountDetails=" + otherAccountDetails +
-                ", amountOfMoney=" + amountOfMoney +
-                ", transactions=" + transactions +
-                '}';
+    public ObservableList<Transaction> getOutcomes() {
+        return outcomes;
     }
 }

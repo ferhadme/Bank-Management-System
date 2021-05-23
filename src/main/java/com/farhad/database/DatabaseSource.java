@@ -3,6 +3,8 @@ package com.farhad.database;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -65,6 +67,7 @@ public class DatabaseSource {
      */
     public static final String TABLE_TRANSACTIONS = "transactions";
     public static final String COLUMN_DEST_ACCOUNT_ID = "destination_account_id";
+    public static final String COLUMN_AMOUNT_OF_TRANSACTION = "amount_of_transaction";
 
     /*
     models
@@ -134,20 +137,6 @@ public class DatabaseSource {
         return false;
     }
 
-//    public boolean usernameExists(String username) {
-//        try (Statement statement = connection.createStatement()) {
-//            ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
-//                    " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
-//            rs.next();
-//            int exist = rs.getInt("is_contain");
-//            return exist == 1;
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
-//        }
-//        return false;
-//    }
-
     public boolean customerDataExists(String data, String COLUMN_NAME) {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
@@ -215,9 +204,10 @@ public class DatabaseSource {
                     TABLE_ACCOUNTS + " WHERE " + COLUMN_CUSTOMER_ID + " = (SELECT " + COLUMN_CUSTOMER_ID +
                     " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "');");
             while (rs.next()) {
-                List<Transaction> transactions = getTransactionsOfAccount(rs.getString(COLUMN_ACCOUNT_ID));
+                List<Transaction> incomes = getIncomesOfCustomer(rs.getString(COLUMN_ACCOUNT_ID));
+                List<Transaction> outcomes = getOutcomesOfCustomer(rs.getString(COLUMN_ACCOUNT_ID));
                 accounts.add(new Account(rs.getString(COLUMN_ACCOUNT_ID), rs.getString(COLUMN_ACCOUNT_NAME),
-                        rs.getDouble(COLUMN_AMOUNT_OF_MONEY), rs.getString(COLUMN_ACCOUNT_OTHER_DETAILS), transactions));
+                        rs.getDouble(COLUMN_AMOUNT_OF_MONEY), rs.getString(COLUMN_ACCOUNT_OTHER_DETAILS), incomes, outcomes));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -229,10 +219,11 @@ public class DatabaseSource {
         List<Transaction> transactions = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
-                    " FROM " + TABLE_TRANSACTIONS + " WHERE " + COLUMN_ACCOUNT_ID + " = '" + accountId + "';");
+                    ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS + " WHERE " +
+                    COLUMN_ACCOUNT_ID + " = '" + accountId + "';");
             while (rs.next()) {
                 transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
-                        rs.getString(COLUMN_OTHER_DETAILS)));
+                        rs.getString(COLUMN_OTHER_DETAILS), rs.getFloat(COLUMN_AMOUNT_OF_TRANSACTION)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -253,6 +244,38 @@ public class DatabaseSource {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<Transaction> getIncomesOfCustomer(String accountId) {
+        List<Transaction> transactions = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
+                    ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS + " WHERE " +
+                    COLUMN_DEST_ACCOUNT_ID + " = '" + accountId + "';");
+            while (rs.next()) {
+                transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
+                        rs.getString(COLUMN_OTHER_DETAILS), rs.getFloat(COLUMN_AMOUNT_OF_TRANSACTION)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transactions;
+    }
+
+    private List<Transaction> getOutcomesOfCustomer(String accountId) {
+     List<Transaction> transactions = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
+                    ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS + " WHERE " +
+                    COLUMN_ACCOUNT_ID + " = '" + accountId + "';");
+            while (rs.next()) {
+                transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
+                        rs.getString(COLUMN_OTHER_DETAILS), rs.getFloat(COLUMN_AMOUNT_OF_TRANSACTION)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transactions;
     }
 
 }
