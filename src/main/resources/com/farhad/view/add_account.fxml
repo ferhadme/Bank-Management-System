@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.AddAccountController"
@@ -16,6 +12,29 @@
     </left>
 
     <center>
-        <Label text="Add account" />
+        <VBox spacing="100.0" alignment="CENTER">
+            <Label id="add-account-header" text="Add New Account" />
+            <VBox spacing="25.0">
+                <VBox spacing="15.0" alignment="CENTER">
+                    <HBox alignment="CENTER">
+                        <Label styleClass="add-account-labels" text="Enter Account Id: " />
+                        <TextField styleClass="add-account-text-fields" fx:id="accountIdTextField" />
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="add-account-labels" text="Enter Account name: " />
+                        <TextField styleClass="add-account-text-fields" fx:id="accountNameTextField"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="add-account-labels" text="Initial amount of money: " />
+                        <TextField styleClass="add-account-text-fields" fx:id="amountOfMoneyTextField"/>
+                    </HBox>
+                    <HBox alignment="CENTER">
+                        <Label styleClass="add-account-labels" text="Other details: " />
+                        <TextField styleClass="add-account-text-fields" fx:id="otherDetailsTextField"/>
+                    </HBox>
+                    <Button fx:id="addAccountBtn" id="add-account-btn" text="Submit"/>
+                </VBox>
+            </VBox>
+        </VBox>
     </center>
 </BorderPane>

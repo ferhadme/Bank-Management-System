@@ -46,16 +46,27 @@ public class TransactionsController {
 
     private void submitTransaction(ActionEvent event) {
         if (buttonActivation) {
+            if (!accountIdRegexValidation()) {
+                AlertUtils.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
+                return;
+            }
             try {
-                // make transaction
                 float amount = Float.parseFloat(amountOfMoneyTextField.getText().trim());
                 Account account = accountChoiceBox.getValue();
+                if (amount > account.getAmountOfMoney()) {
+                    AlertUtils.showErrorAlert("Not Enough Money",
+                            "Please use different account or make deposit to this account", "");
+                    return;
+                }
                 Transaction transaction = new Transaction(account.getAccountId(), modifyAccountId(), "", amount);
                 DatabaseSource.getInstance().makeTransaction(transaction);
                 account.getOutcomes().add(transaction);
             } catch (NumberFormatException e) {
                 AlertUtils.showErrorAlert("Wrong Number Format",
                         "Please provide correct number format for amount of transaction", "");
+            } finally {
+                destAccountIdTextField.clear();
+                amountOfMoneyTextField.clear();
             }
         }
     }
