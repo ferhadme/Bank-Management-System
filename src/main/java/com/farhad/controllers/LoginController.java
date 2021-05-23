@@ -119,7 +119,7 @@ public class LoginController {
 
     public void login(String username, String password) {
         try {
-            if (DatabaseSource.getInstance().usernameExists(username)
+            if (DatabaseSource.getInstance().customerDataExists(username, DatabaseSource.COLUMN_CUSTOMER_LOGIN)
                     && DatabaseSource.getInstance().verifyCustomerPassword(username, PBKDF2.generateHashPassword(password))) {
                 DatabaseSource.getInstance().loginCustomer(username);
                 loadDashBoardOverview();

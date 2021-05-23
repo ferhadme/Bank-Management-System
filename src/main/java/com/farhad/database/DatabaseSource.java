@@ -2,6 +2,7 @@ package com.farhad.database;
 
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
+import com.farhad.models.Transaction;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -25,9 +26,17 @@ public class DatabaseSource {
      customer_types table
      */
     public static final Map<String, Integer> CUSTOMER_TYPE_KEY_VALUE = new HashMap<>();
+    public static final Map<String, Integer> ACCOUNT_TYPE_KEY_VALUE = new HashMap<>();
     public static final String TABLE_CUSTOMER_TYPES = "customer_types";
     public static final String COLUMN_CUSTOMER_TYPE_CODE = "customer_type_code";
     public static final String COLUMN_CUSTOMER_TYPE_NAME = "customer_type_name";
+
+    /*
+    account_types table
+     */
+    public static final String TABLE_ACCOUNT_TYPES = "account_types";
+    public static final String COLUMN_ACCOUNT_TYPE_CODE = "account_type_code";
+    public static final String COLUMN_ACCOUNT_TYPE_NAME = "account_type_name";
 
     /*
     customers table
@@ -40,6 +49,22 @@ public class DatabaseSource {
     public static final String COLUMN_CUSTOMER_PASSWORD = "customer_password";
     public static final String COLUMN_OTHER_DETAILS = "other_details";
     public static final String COLUMN_CUSTOMER_TYPE_CODE_FK = "customer_types_code";
+
+    /*
+    accounts table
+     */
+    public static final String TABLE_ACCOUNTS = "accounts";
+    public static final String COLUMN_ACCOUNT_ID = "account_id";
+    public static final String COLUMN_ACCOUNT_NAME = "account_name";
+    public static final String COLUMN_ACCOUNT_OTHER_DETAILS = "other_account_details";
+    public static final String COLUMN_AMOUNT_OF_MONEY = "amount_of_money";
+    public static final String COLUMN_CUSTOMER_ID = "customer_id";
+
+    /*
+    transactions table
+     */
+    public static final String TABLE_TRANSACTIONS = "transactions";
+    public static final String COLUMN_DEST_ACCOUNT_ID = "destination_account_id";
 
     /*
     models
@@ -81,6 +106,15 @@ public class DatabaseSource {
                         customerTypesKeyValue.getInt(COLUMN_CUSTOMER_TYPE_CODE)
                 );
             }
+            ResultSet accountTypesKeyValue = statement.executeQuery("SELECT " + COLUMN_ACCOUNT_TYPE_CODE + ", " +
+                    COLUMN_ACCOUNT_TYPE_NAME + " FROM " + TABLE_ACCOUNT_TYPES
+            );
+            while (accountTypesKeyValue.next()) {
+                ACCOUNT_TYPE_KEY_VALUE.put(
+                        accountTypesKeyValue.getString(COLUMN_ACCOUNT_TYPE_NAME).replace(" ", "_"),
+                        accountTypesKeyValue.getInt(COLUMN_ACCOUNT_TYPE_CODE)
+                );
+            }
         } catch (SQLException e) {
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
@@ -100,31 +134,45 @@ public class DatabaseSource {
         return false;
     }
 
-    public boolean usernameExists(String username) {
+//    public boolean usernameExists(String username) {
+//        try (Statement statement = connection.createStatement()) {
+//            ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
+//                    " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
+//            rs.next();
+//            int exist = rs.getInt("is_contain");
+//            return exist == 1;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+//        }
+//        return false;
+//    }
+
+    public boolean customerDataExists(String data, String COLUMN_NAME) {
         try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
-                    " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "') as is_contain;");
+                    " WHERE " + COLUMN_NAME + " = '" + data + "') as is_contain;");
             rs.next();
             int exist = rs.getInt("is_contain");
             return exist == 1;
         } catch (SQLException e) {
             e.printStackTrace();
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+            return false;
         }
-        return false;
     }
 
-    public void signUpCustomer(String name, String phone, String email, String login, String password,
-                               String other_details, int customerTypeCode) {
+    public void signUpCustomer(Customer customer, int customerTypeCode) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("INSERT INTO " + TABLE_CUSTOMERS +
                     " (" + COLUMN_CUSTOMER_NAME + ", " + COLUMN_CUSTOMER_PHONE + ", " + COLUMN_CUSTOMER_EMAIL +
                     ", " + COLUMN_CUSTOMER_LOGIN + ", " + COLUMN_CUSTOMER_PASSWORD + ", " + COLUMN_OTHER_DETAILS +
-                    ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + name + "', '" + phone + "', '" + email +
-                    "', '" + login + "', '" + password + "', '" + other_details + "', " + customerTypeCode + ");");
-            // create initial main account
-            createInitMainAccount();
+                    ", " + COLUMN_CUSTOMER_TYPE_CODE_FK + ") VALUES ('" + customer.getName() + "', '" +
+                    customer.getPhoneNumber() + "', '" + customer.getEmail() + "', '" + customer.getLogin() + "', '" +
+                    customer.getPassword() + "', '" + customer.getOtherDetails() + "', " + customerTypeCode + ");");
+            createInitMainAccount(customer.getAccounts().get(0), customer.getLogin());
         } catch (SQLException e) {
+            e.printStackTrace();
             DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
         }
     }
@@ -161,13 +209,50 @@ public class DatabaseSource {
 
     private List<Account> getAccountsOfUser(String username) {
         List<Account> accounts = new ArrayList<>();
-        // fetch all accounts and return
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_ACCOUNT_ID + ", " + COLUMN_ACCOUNT_NAME +
+                    ", " + COLUMN_AMOUNT_OF_MONEY + ", " + COLUMN_ACCOUNT_OTHER_DETAILS + " FROM " +
+                    TABLE_ACCOUNTS + " WHERE " + COLUMN_CUSTOMER_ID + " = (SELECT " + COLUMN_CUSTOMER_ID +
+                    " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN + " = '" + username + "');");
+            while (rs.next()) {
+                List<Transaction> transactions = getTransactionsOfAccount(rs.getString(COLUMN_ACCOUNT_ID));
+                accounts.add(new Account(rs.getString(COLUMN_ACCOUNT_ID), rs.getString(COLUMN_ACCOUNT_NAME),
+                        rs.getDouble(COLUMN_AMOUNT_OF_MONEY), rs.getString(COLUMN_ACCOUNT_OTHER_DETAILS), transactions));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return accounts;
     }
 
-    private void createInitMainAccount() {
-        // create init main account
-        // insert it into database
+    private List<Transaction> getTransactionsOfAccount(String accountId) {
+        List<Transaction> transactions = new ArrayList<>();
+        try (Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
+                    " FROM " + TABLE_TRANSACTIONS + " WHERE " + COLUMN_ACCOUNT_ID + " = '" + accountId + "';");
+            while (rs.next()) {
+                transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
+                        rs.getString(COLUMN_OTHER_DETAILS)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return transactions;
+    }
+
+    private void createInitMainAccount(Account mainAccount, String customerLogin) {
+        try (Statement statement = connection.createStatement()) {
+            System.out.println(ACCOUNT_TYPE_KEY_VALUE.get("Standart_Account"));
+            statement.executeUpdate("INSERT INTO " + TABLE_ACCOUNTS + "(" + COLUMN_ACCOUNT_ID + ", " +
+                    COLUMN_ACCOUNT_NAME + ", " + COLUMN_ACCOUNT_OTHER_DETAILS + ", " + COLUMN_ACCOUNT_TYPE_CODE + ", " +
+                    COLUMN_AMOUNT_OF_MONEY + ", " + COLUMN_CUSTOMER_ID + ") VALUES ('" + mainAccount.getAccountId() + "', '" +
+                    mainAccount.getAccountName() + "', '" + mainAccount.getOtherAccountDetails() + "', " +
+                    ACCOUNT_TYPE_KEY_VALUE.get("Standart_Account") + ", " + mainAccount.getAmountOfMoney() +
+                    ", (SELECT " + COLUMN_CUSTOMER_ID + " FROM " + TABLE_CUSTOMERS + " WHERE " + COLUMN_CUSTOMER_LOGIN +
+                    "='" + customerLogin + "'));");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
