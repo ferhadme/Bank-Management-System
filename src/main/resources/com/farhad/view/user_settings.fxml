@@ -49,6 +49,7 @@
                     <Button fx:id="updateCustomerInfoBtn" id="update-customer-btn" text="Submit"/>
                 </VBox>
             </VBox>
+            <Button text="Delete Customer" fx:id="deleteCustomerBtn" id="delete-customer-btn"/>
         </VBox>
     </center>
 </BorderPane>

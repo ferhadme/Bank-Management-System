@@ -57,6 +57,7 @@ public class RegistrationController {
         setCustomerTypesChoiceBoxItems();
         loginLabelProperties();
         signUpButton.setOnAction(this::signUp);
+        signUpButton.setCursor(Cursor.HAND);
     }
 
     private void setCustomerTypesChoiceBoxItems() {
@@ -129,11 +130,13 @@ public class RegistrationController {
         if (!phoneNumberRegexValidation(phoneTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
+            System.out.println("phone number regex is false");
             return false;
         }
         if (!emailRegexValidation(emailTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Email is not correct",
                     "Please provide correct email address");
+            System.out.println("email regex is false");
             return false;
         }
         if (!usernameRegexValidation(usernameTextField)) {
@@ -143,19 +146,23 @@ public class RegistrationController {
                             "Username could contain only letters, digits, ., _\n" +
                             "Digits and . could not be the first character of username\n" +
                             ". could not appear consecutively");
+            System.out.println("username regex is false");
             return false;
         }
         if (!emailDBValidation()) {
             AlertUtils.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
+            System.out.println("email db is false");
             return false;
         }
         if (!phoneNumberDBValidation()) {
             AlertUtils.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
+            System.out.println("phone number db is false");
             return false;
         }
         if (!usernameDBValidation()) {
             AlertUtils.showErrorAlert("Incorrect Input", "Username is already token",
                     "Please take another username");
+            System.out.println("username Db is false");
             return false;
         }
         if (!passwordRegexValidation(passwordTextField)) {
@@ -166,16 +173,22 @@ public class RegistrationController {
                             "Contains at least one lower alpha character and one upper alpha character\n" +
                             "Contains at least one character within a set of special characters (@#%$^ etc)\n" +
                             "Does not contain space, tab, etc.");
+            System.out.println("password regex is false");
+            return false;
         }
         if (!passwordConfirmation()) {
             AlertUtils.showErrorAlert("Incorrect Input", "Confirmation password is not correct",
                     "Please provide the same password");
+            System.out.println("password confirmation false");
             return false;
         }
-        if (accountIdRegexValidation(accountIdTextField)) {
+        if (!accountIdRegexValidation(accountIdTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Account ID is not correct",
                     "Be sure you're entering right account information");
+            System.out.println("account id false");
+            return false;
         }
+        System.out.println("True is executed");
         return true;
     }
 

@@ -76,6 +76,7 @@ public class DatabaseSource {
     models
      */
     private Customer customer;
+    private String prevCustomerLogin;
 
     private Connection connection;
 
@@ -87,6 +88,10 @@ public class DatabaseSource {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setPrevCustomerLogin(String prevCustomerLogin) {
+        this.prevCustomerLogin = prevCustomerLogin;
     }
 
     public boolean open() {
@@ -318,8 +323,37 @@ public class DatabaseSource {
         }
     }
 
-    public void updateCustomerInfo(Customer customer) {
+    public void updateCustomerInfo() {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("UPDATE " + TABLE_CUSTOMERS + " SET " +
+                    COLUMN_CUSTOMER_LOGIN + "='" + customer.getLogin() + "'," +
+                    COLUMN_CUSTOMER_NAME + "='" + customer.getName() + "'," +
+                    COLUMN_CUSTOMER_EMAIL + "='" + customer.getEmail() + "'," +
+                    COLUMN_CUSTOMER_PHONE + "='" + customer.getPhoneNumber() + "'," +
+                    COLUMN_OTHER_DETAILS + "='" + customer.getOtherDetails() + "' " +
+                    "WHERE " + COLUMN_CUSTOMER_LOGIN + "='" + prevCustomerLogin + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void deleteCustomer() {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM " + TABLE_CUSTOMERS + " WHERE " +
+                    COLUMN_CUSTOMER_LOGIN + "='" + customer.getLogin() + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAccountMoney(String accountId, float amount) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("UPDATE " + TABLE_ACCOUNTS + " SET " +
+                    COLUMN_AMOUNT_OF_MONEY + "=" + amount + " WHERE " +
+                    COLUMN_ACCOUNT_ID + "='" + accountId + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

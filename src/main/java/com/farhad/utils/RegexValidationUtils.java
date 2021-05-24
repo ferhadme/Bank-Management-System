@@ -24,7 +24,7 @@ public class RegexValidationUtils {
     }
 
     public static boolean accountIdRegexValidation(TextField accountIdTextField) {
-        return accountIdTextField.getText().trim().matches("\\d{16}");
+        return modifyNumber(accountIdTextField.getText().trim()).matches("\\d{16}");
     }
 
     public static String modifyNumber(String str) {

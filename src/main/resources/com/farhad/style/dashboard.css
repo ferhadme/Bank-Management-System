@@ -135,3 +135,11 @@
     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
     -fx-text-fill: #395306;    
 }
+
+#delete-customer-btn {
+   -fx-background-color:red;
+   -fx-text-fill:white;
+   -fx-wrap-text: true;
+   -fx-effect: dropshadow( three-pass-box, red, 10.0, 0.0, 0.0, 0.0);
+   -fx-cursor:hand;
+}

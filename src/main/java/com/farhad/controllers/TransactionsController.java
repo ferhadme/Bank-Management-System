@@ -55,13 +55,16 @@ public class TransactionsController {
             try {
                 float amount = Float.parseFloat(amountOfMoneyTextField.getText().trim());
                 Account account = accountChoiceBox.getValue();
-                if (amount > account.getAmountOfMoney()) {
-                    AlertUtils.showErrorAlert("Not Enough Money",
-                            "Please use different account or make deposit to this account", "");
+                if (amount > account.getAmountOfMoney() || amount <= 0) {
+                    AlertUtils.showErrorAlert("Error", "Not Enough Money",
+                            "Please use different account or make deposit to this account");
                     return;
                 }
                 Transaction transaction = new Transaction(account.getAccountId(),
                         modifyNumber(destAccountIdTextField.getText().trim()), "", amount);
+                account.setAmountOfMoney(account.getAmountOfMoney() - amount);
+                DatabaseSource.getInstance().updateAccountMoney(account.getAccountId(), amount);
+                DatabaseSource.getInstance().updateAccountMoney(modifyNumber(destAccountIdTextField.getText().trim()), amount);
                 DatabaseSource.getInstance().makeTransaction(transaction);
                 account.getOutcomes().add(transaction);
             } catch (NumberFormatException e) {
