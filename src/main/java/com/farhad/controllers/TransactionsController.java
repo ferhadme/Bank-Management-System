@@ -5,13 +5,15 @@ import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
 import com.farhad.utils.AlertUtils;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+
+import static com.farhad.utils.RegexValidationUtils.accountIdRegexValidation;
+import static com.farhad.utils.RegexValidationUtils.modifyNumber;
 
 public class TransactionsController {
     @FXML
@@ -32,7 +34,7 @@ public class TransactionsController {
         accountChoiceBox.setItems(customer.getAccounts());
 
         destAccountIdTextField.setOnKeyTyped(event -> {
-            if (modifyAccountId().length() == 16) {
+            if (modifyNumber(destAccountIdTextField.getText().trim()).length() == 16) {
                 submitTransactionBtn.setCursor(Cursor.HAND);
                 buttonActivation = true;
             } else {
@@ -46,7 +48,7 @@ public class TransactionsController {
 
     private void submitTransaction(ActionEvent event) {
         if (buttonActivation) {
-            if (!accountIdRegexValidation()) {
+            if (!accountIdRegexValidation(destAccountIdTextField)) {
                 AlertUtils.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
                 return;
             }
@@ -58,7 +60,8 @@ public class TransactionsController {
                             "Please use different account or make deposit to this account", "");
                     return;
                 }
-                Transaction transaction = new Transaction(account.getAccountId(), modifyAccountId(), "", amount);
+                Transaction transaction = new Transaction(account.getAccountId(),
+                        modifyNumber(destAccountIdTextField.getText().trim()), "", amount);
                 DatabaseSource.getInstance().makeTransaction(transaction);
                 account.getOutcomes().add(transaction);
             } catch (NumberFormatException e) {
@@ -70,14 +73,4 @@ public class TransactionsController {
             }
         }
     }
-
-    private boolean accountIdRegexValidation() {
-        return destAccountIdTextField.getText().trim().matches("\\d{16}");
-    }
-
-    private String modifyAccountId() {
-        return destAccountIdTextField.getText().trim().replaceAll("(-|\\s)+", "");
-    }
-
-
 }

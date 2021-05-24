@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.farhad.utils.RegexValidationUtils.*;
+
 public class RegistrationController {
     @FXML
     private ChoiceBox<String> customerTypesChoiceBox;
@@ -43,9 +45,9 @@ public class RegistrationController {
     @FXML
     private TextField usernameTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordTextField;
     @FXML
-    private TextField confirmPassTextField;
+    private PasswordField confirmPassTextField;
     @FXML
     private TextField otherDetailsTextField;
     @FXML
@@ -124,17 +126,17 @@ public class RegistrationController {
     }
 
     private boolean checkAllTextFields() {
-        if (!phoneNumberRegexValidation()) {
+        if (!phoneNumberRegexValidation(phoneTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
-        if (!emailRegexValidation()) {
+        if (!emailRegexValidation(emailTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Email is not correct",
                     "Please provide correct email address");
             return false;
         }
-        if (!usernameRegexValidation()) {
+        if (!usernameRegexValidation(usernameTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Username is not correct",
                     "Requirements:\n" +
                             "Length should be greater than or equal to 8\n" +
@@ -156,7 +158,7 @@ public class RegistrationController {
                     "Please take another username");
             return false;
         }
-        if (!passwordValidation()) {
+        if (!passwordRegexValidation(passwordTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Username password is not safe",
                     "Safe password policy:\n" +
                             "At least 8 characters\n" +
@@ -170,29 +172,11 @@ public class RegistrationController {
                     "Please provide the same password");
             return false;
         }
-        if (accountIdRegexValidation()) {
+        if (accountIdRegexValidation(accountIdTextField)) {
             AlertUtils.showErrorAlert("Incorrect Input", "Account ID is not correct",
                     "Be sure you're entering right account information");
         }
         return true;
-    }
-
-    private boolean phoneNumberRegexValidation() {
-        return modifyNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
-    }
-
-    private boolean emailRegexValidation() {
-        return emailTextField.getText().trim().matches("\\S+@(\\S*\\.?)+\\w+$");
-    }
-
-    private boolean usernameRegexValidation() {
-        return usernameTextField.getText().trim().matches("^[a-zA-Z_]+(\\.?\\w+|_*\\w*)*$");
-    }
-
-    private boolean passwordValidation() {
-        return passwordTextField.getText().matches(
-                "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[.@#$%^&+=])(?=\\S+$).{8,}$"
-        );
     }
 
     private boolean phoneNumberDBValidation() {
@@ -213,13 +197,4 @@ public class RegistrationController {
     private boolean passwordConfirmation() {
         return passwordTextField.getText().equals(confirmPassTextField.getText());
     }
-
-    private boolean accountIdRegexValidation() {
-        return accountIdTextField.getText().trim().matches("\\d{16}");
-    }
-
-    private String modifyNumber(String str) {
-        return str.replaceAll("(\\s|-)*", "");
-    }
-
 }

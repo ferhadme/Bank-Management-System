@@ -10,6 +10,8 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+import static com.farhad.utils.RegexValidationUtils.*;
+
 import java.util.ArrayList;
 
 public class AddAccountController {
@@ -31,7 +33,7 @@ public class AddAccountController {
     public void initialize() {
         customer = DatabaseSource.getInstance().getCustomer();
         accountIdTextField.setOnKeyTyped(event -> {
-            if (modifyAccountId().length() == 16) {
+            if (modifyNumber(accountIdTextField.getText().trim()).length() == 16) {
                 addAccountBtn.setCursor(Cursor.HAND);
                 buttonActivation = true;
             } else {
@@ -42,23 +44,16 @@ public class AddAccountController {
         addAccountBtn.setOnAction(this::submit);
     }
 
-    private boolean accountIdRegexValidation() {
-        return modifyAccountId().matches("\\d{16}");
-    }
-
-    private String modifyAccountId() {
-        return accountIdTextField.getText().trim().replaceAll("(\\s|-)*", "");
-    }
-
     private void submit(ActionEvent event) {
         if (buttonActivation) {
-            if (!accountIdRegexValidation()) {
+            if (!accountIdRegexValidation(accountIdTextField)) {
                 AlertUtils.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
                 return;
             }
             try {
                 float amount = Float.parseFloat(amountOfMoneyTextField.getText().trim());
-                Account account = new Account(modifyAccountId(), accountNameTextField.getText().trim(), amount,
+                Account account = new Account(modifyNumber(accountIdTextField.getText().trim()),
+                        accountNameTextField.getText().trim(), amount,
                         otherDetailsTextField.getText().trim(), new ArrayList<>(), new ArrayList<>());
                 DatabaseSource.getInstance().createNewAccount(account);
                 customer.getAccounts().add(account);
