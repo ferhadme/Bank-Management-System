@@ -47,7 +47,7 @@ public class AccountsController {
         MenuItem outcomesToExcel = new MenuItem("Write outcomes to Excel");
         ContextMenu menu = new ContextMenu();
         menu.getItems().addAll(delete, update, deposit, withdraw, incomesToExcel, outcomesToExcel);
-        
+
         accountsListView.setItems(customer.getAccounts());
         accountsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         accountsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldItem, newItem) -> {
