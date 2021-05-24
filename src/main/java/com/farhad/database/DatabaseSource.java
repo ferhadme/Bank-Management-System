@@ -154,6 +154,25 @@ public class DatabaseSource {
         }
     }
 
+    public boolean customerDataExistsOnUpdate(String data, String COLUMN_NAME) {
+        try (Statement statement = connection.createStatement()) {
+            System.out.println(COLUMN_NAME);
+            System.out.println(data);
+            System.out.println(customer.getLogin());
+            ResultSet rs = statement.executeQuery("SELECT EXISTS(SELECT * FROM " + TABLE_CUSTOMERS +
+                    " WHERE " + COLUMN_NAME + " = '" + data + "' AND " + COLUMN_CUSTOMER_LOGIN + "!='" + customer.getLogin() +
+                    "') as is_contain;");
+            rs.next();
+            int exist = rs.getInt("is_contain");
+            System.out.println(exist);
+            return exist == 1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            DB_ERROR_LOGGER.log(Level.SEVERE, "Statement couldn't be executed");
+            return false;
+        }
+    }
+
     public void signUpCustomer(Customer customer, int customerTypeCode) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("INSERT INTO " + TABLE_CUSTOMERS +
@@ -216,22 +235,6 @@ public class DatabaseSource {
             e.printStackTrace();
         }
         return accounts;
-    }
-
-    private List<Transaction> getTransactionsOfAccount(String accountId) {
-        List<Transaction> transactions = new ArrayList<>();
-        try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
-                    ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS + " WHERE " +
-                    COLUMN_ACCOUNT_ID + " = '" + accountId + "';");
-            while (rs.next()) {
-                transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
-                        rs.getString(COLUMN_OTHER_DETAILS), rs.getFloat(COLUMN_AMOUNT_OF_TRANSACTION)));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return transactions;
     }
 
     private void createInitMainAccount(Account mainAccount, String customerLogin) {
@@ -304,6 +307,19 @@ public class DatabaseSource {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void changeCustomerPassword(String password) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("UPDATE " + TABLE_CUSTOMERS + " SET " + COLUMN_CUSTOMER_PASSWORD + "='" +
+                    password + "' WHERE " + COLUMN_CUSTOMER_LOGIN + "='" + customer.getLogin() + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateCustomerInfo(Customer customer) {
+
     }
 
 }
