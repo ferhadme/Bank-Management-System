@@ -38,6 +38,16 @@ public class AccountsController {
         VBox.setMargin(accountInfoVBox, new Insets(20, 0, 0, 0));
         customer = DatabaseSource.getInstance().getCustomer();
         TableViewUtils.constructIncomeAndOutcomeTableViews(incomes, outcomes);
+
+        MenuItem delete = new MenuItem("Delete");
+        MenuItem update = new MenuItem("Update");
+        MenuItem deposit = new MenuItem("Deposit");
+        MenuItem withdraw = new MenuItem("Withdraw");
+        MenuItem incomesToExcel = new MenuItem("Write incomes to Excel");
+        MenuItem outcomesToExcel = new MenuItem("Write outcomes to Excel");
+        ContextMenu menu = new ContextMenu();
+        menu.getItems().addAll(delete, update, deposit, withdraw, incomesToExcel, outcomesToExcel);
+        
         accountsListView.setItems(customer.getAccounts());
         accountsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         accountsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldItem, newItem) -> {
