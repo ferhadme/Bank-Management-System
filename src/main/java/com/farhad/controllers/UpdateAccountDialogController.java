@@ -2,10 +2,7 @@ package com.farhad.controllers;
 
 import com.farhad.database.DatabaseSource;
 import com.farhad.models.Account;
-import com.farhad.models.Customer;
-import com.farhad.utils.AlertGenerator;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 
 public class UpdateAccountDialogController {

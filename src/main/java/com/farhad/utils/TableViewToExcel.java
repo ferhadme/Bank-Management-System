@@ -2,7 +2,6 @@ package com.farhad.utils;
 
 import com.farhad.models.Transaction;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import org.apache.poi.ss.usermodel.*;
@@ -12,7 +11,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 public class TableViewToExcel {
     public static void write(TableView<?> tableView, String tableName) {

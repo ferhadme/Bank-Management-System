@@ -1,14 +1,11 @@
 package com.farhad.utils;
 
 import com.farhad.App;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Modality;
-
-import java.io.IOException;
 
 public class DialogGenerator {
     public static Dialog<ButtonType> getDialog(String title, String cssFile) {
