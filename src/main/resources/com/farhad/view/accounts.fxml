@@ -9,6 +9,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.farhad.controllers.AccountsController"
+            fx:id="root"
             stylesheets="@../style/dashboard.css"
             styleClass="dashboard-root">
     <left>

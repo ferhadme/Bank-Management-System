@@ -4,16 +4,10 @@ import com.farhad.database.DatabaseSource;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
-import com.farhad.utils.TableViewUtils;
+import com.farhad.utils.TableViewGenerator;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 public class OverviewController {
     @FXML
@@ -39,7 +33,7 @@ public class OverviewController {
         accountName.textProperty().bind(mainAccount.accountNameProperty());
         amountOfMoney.textProperty().bind(mainAccount.amountOfMoneyProperty().asString());
         otherAccountDetails.textProperty().bind(mainAccount.otherAccountDetailsProperty());
-        TableViewUtils.constructIncomeAndOutcomeTableViews(incomes, outcomes);
+        TableViewGenerator.constructIncomeAndOutcomeTableViews(incomes, outcomes);
         incomes.setItems(customer.getAccounts().get(0).getIncomes());
         outcomes.setItems(customer.getAccounts().get(0).getOutcomes());
     }

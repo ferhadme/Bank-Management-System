@@ -356,4 +356,25 @@ public class DatabaseSource {
         }
     }
 
+    public void deleteAccount(Account account) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("DELETE FROM " + TABLE_ACCOUNTS + " WHERE " + COLUMN_ACCOUNT_ID + "='" +
+                    account.getAccountId() + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateAccount(Account account) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate("UPDATE " + TABLE_ACCOUNTS + " SET " +
+                    COLUMN_ACCOUNT_NAME + "='" + account.getAccountName() + "', " +
+                    COLUMN_ACCOUNT_OTHER_DETAILS + "='" + account.getOtherAccountDetails() +
+                    "' WHERE " + COLUMN_ACCOUNT_ID + "='" + account.getAccountId() + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

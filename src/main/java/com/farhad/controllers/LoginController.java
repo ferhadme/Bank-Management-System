@@ -3,7 +3,7 @@ package com.farhad.controllers;
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
 import com.farhad.security.PBKDF2;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,7 +124,7 @@ public class LoginController {
                 DatabaseSource.getInstance().loginCustomer(username);
                 loadDashBoardOverview();
             } else {
-                AlertUtils.showErrorAlert("Incorrect Input", "Username or password is incorrect",
+                AlertGenerator.showErrorAlert("Incorrect Input", "Username or password is incorrect",
                         "Please provide correct username and password");
             }
         } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {

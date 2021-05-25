@@ -9,7 +9,7 @@ import java.util.Optional;
 /*
     The reason for duplications of similar alert methods is that type of alert can be redesigned later
  */
-public class AlertUtils {
+public class AlertGenerator {
 
     public static void showErrorAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

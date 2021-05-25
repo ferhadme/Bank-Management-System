@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.farhad.controllers.UpdateAccountDialogController"
+      stylesheets="@../style/dialog_pane.css"
+      alignment="CENTER_LEFT" spacing="10.0">
+    <HBox>
+        <Label text="Amount" styleClass="dialog-labels" />
+        <TextField styleClass="dialog-fields" fx:id="depositTextField"/>
+    </HBox>
+</VBox>

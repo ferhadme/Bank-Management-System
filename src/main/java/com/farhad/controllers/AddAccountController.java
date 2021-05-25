@@ -3,14 +3,14 @@ package com.farhad.controllers;
 import com.farhad.database.DatabaseSource;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-import static com.farhad.utils.RegexValidationUtils.*;
+import static com.farhad.utils.RegexValidation.*;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class AddAccountController {
     private void submit(ActionEvent event) {
         if (buttonActivation) {
             if (!accountIdRegexValidation(accountIdTextField)) {
-                AlertUtils.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
+                AlertGenerator.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
                 return;
             }
             try {
@@ -57,8 +57,9 @@ public class AddAccountController {
                         otherDetailsTextField.getText().trim(), new ArrayList<>(), new ArrayList<>());
                 DatabaseSource.getInstance().createNewAccount(account);
                 customer.getAccounts().add(account);
+                AlertGenerator.showInfoAlert("Successful", "New account has been added successfully", "");
             } catch (NumberFormatException e) {
-                AlertUtils.showErrorAlert("Wrong Number Format",
+                AlertGenerator.showErrorAlert("Wrong Number Format",
                         "Please provide correct number format for amount of transaction", "");
             } finally {
                 accountIdTextField.clear();

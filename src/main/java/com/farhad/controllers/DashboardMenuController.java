@@ -4,7 +4,7 @@ import com.farhad.App;
 import com.farhad.database.DatabaseSource;
 import com.farhad.models.Customer;
 import com.farhad.utils.ActiveDashboardMenuItem;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -134,7 +134,7 @@ public class DashboardMenuController {
     }
 
     private void logout(MouseEvent event) {
-        if (AlertUtils.showConfirmationAlert("Logout", "Do you want to logout?", "")) {
+        if (AlertGenerator.showConfirmationAlert("Logout", "Do you want to logout?", "")) {
             try {
                 FXMLLoader loader = new FXMLLoader(App.class.getResource("view/login.fxml"));
                 Parent root = loader.load();
