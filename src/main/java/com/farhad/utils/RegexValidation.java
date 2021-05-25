@@ -3,7 +3,7 @@ package com.farhad.utils;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class RegexValidationUtils {
+public class RegexValidation {
 
     public static boolean phoneNumberRegexValidation(TextField phoneTextField) {
         return modifyNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");

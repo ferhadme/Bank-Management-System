@@ -5,7 +5,7 @@ import com.farhad.database.DatabaseSource;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.security.PBKDF2;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.farhad.utils.RegexValidationUtils.*;
+import static com.farhad.utils.RegexValidation.*;
 
 public class RegistrationController {
     @FXML
@@ -128,45 +128,45 @@ public class RegistrationController {
 
     private boolean checkAllTextFields() {
         if (!phoneNumberRegexValidation(phoneTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Phone number is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             System.out.println("phone number regex is false");
             return false;
         }
         if (!emailRegexValidation(emailTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Email is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Email is not correct",
                     "Please provide correct email address");
             System.out.println("email regex is false");
             return false;
         }
         if (!usernameRegexValidation(usernameTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Username is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Username is not correct",
                     "Requirements:\n" +
-                            "Length should be greater than or equal to 8\n" +
                             "Username could contain only letters, digits, ., _\n" +
                             "Digits and . could not be the first character of username\n" +
+                            ". shouldn't be last character of username\n" +
                             ". could not appear consecutively");
             System.out.println("username regex is false");
             return false;
         }
         if (!emailDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
+            AlertGenerator.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
             System.out.println("email db is false");
             return false;
         }
         if (!phoneNumberDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
+            AlertGenerator.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
             System.out.println("phone number db is false");
             return false;
         }
         if (!usernameDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Username is already token",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Username is already token",
                     "Please take another username");
             System.out.println("username Db is false");
             return false;
         }
         if (!passwordRegexValidation(passwordTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Username password is not safe",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Username password is not safe",
                     "Safe password policy:\n" +
                             "At least 8 characters\n" +
                             "Contains at least one digit\n" +
@@ -177,13 +177,13 @@ public class RegistrationController {
             return false;
         }
         if (!passwordConfirmation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Confirmation password is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Confirmation password is not correct",
                     "Please provide the same password");
             System.out.println("password confirmation false");
             return false;
         }
         if (!accountIdRegexValidation(accountIdTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Account ID is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Account ID is not correct",
                     "Be sure you're entering right account information");
             System.out.println("account id false");
             return false;

@@ -9,7 +9,7 @@ import javafx.scene.control.PasswordField;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-import static com.farhad.utils.RegexValidationUtils.passwordRegexValidation;
+import static com.farhad.utils.RegexValidation.passwordRegexValidation;
 
 public class ChangePasswordDialogController {
     @FXML

@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TableViewUtils {
+public class TableViewGenerator {
 
     public static void constructIncomeAndOutcomeTableViews(TableView<Transaction> incomes, TableView<Transaction> outcomes) {
         incomes.setPlaceholder(new Label("No transaction made yet"));

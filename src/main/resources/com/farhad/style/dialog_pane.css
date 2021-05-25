@@ -2,12 +2,12 @@
     -fx-background-color: #101022;
 }
 
-.change-password-dialog-labels {
+.dialog-labels {
     -fx-text-fill: white;
     -fx-min-width: 150;
 }
 
-.change-password-dialog-pass-fields {
+.dialog-fields {
     -fx-min-width: 300;
     -fx-min-height: 30;
 }

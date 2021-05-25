@@ -4,7 +4,7 @@ import com.farhad.database.DatabaseSource;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -12,8 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-import static com.farhad.utils.RegexValidationUtils.accountIdRegexValidation;
-import static com.farhad.utils.RegexValidationUtils.modifyNumber;
+import static com.farhad.utils.RegexValidation.accountIdRegexValidation;
+import static com.farhad.utils.RegexValidation.modifyNumber;
 
 public class TransactionsController {
     @FXML
@@ -49,14 +49,14 @@ public class TransactionsController {
     private void submitTransaction(ActionEvent event) {
         if (buttonActivation) {
             if (!accountIdRegexValidation(destAccountIdTextField)) {
-                AlertUtils.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
+                AlertGenerator.showErrorAlert("Incorrect Input", "Your Account Id is not correct", "");
                 return;
             }
             try {
                 float amount = Float.parseFloat(amountOfMoneyTextField.getText().trim());
                 Account account = accountChoiceBox.getValue();
                 if (amount > account.getAmountOfMoney() || amount <= 0) {
-                    AlertUtils.showErrorAlert("Error", "Not Enough Money",
+                    AlertGenerator.showErrorAlert("Error", "Not Enough Money",
                             "Please use different account or make deposit to this account");
                     return;
                 }
@@ -67,8 +67,9 @@ public class TransactionsController {
                 DatabaseSource.getInstance().updateAccountMoney(modifyNumber(destAccountIdTextField.getText().trim()), amount);
                 DatabaseSource.getInstance().makeTransaction(transaction);
                 account.getOutcomes().add(transaction);
+                AlertGenerator.showInfoAlert("Successful", "Transaction has been made successfully", "");
             } catch (NumberFormatException e) {
-                AlertUtils.showErrorAlert("Wrong Number Format",
+                AlertGenerator.showErrorAlert("Wrong Number Format",
                         "Please provide correct number format for amount of transaction", "");
             } finally {
                 destAccountIdTextField.clear();

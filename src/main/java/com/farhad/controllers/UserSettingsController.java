@@ -3,7 +3,8 @@ package com.farhad.controllers;
 import com.farhad.App;
 import com.farhad.database.DatabaseSource;
 import com.farhad.models.Customer;
-import com.farhad.utils.AlertUtils;
+import com.farhad.utils.AlertGenerator;
+import com.farhad.utils.DialogGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,7 @@ import javafx.stage.Modality;
 import java.io.IOException;
 import java.util.Optional;
 
-import static com.farhad.utils.RegexValidationUtils.*;
+import static com.farhad.utils.RegexValidation.*;
 
 public class UserSettingsController {
     @FXML
@@ -63,32 +64,21 @@ public class UserSettingsController {
     }
 
     private void changePassword(ActionEvent event) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Change Password");
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        DialogPane dialogPane = dialog.getDialogPane();
-        dialogPane.setMinHeight(Region.USE_PREF_SIZE);
-        dialogPane.setMinWidth(Region.USE_PREF_SIZE);
-        dialogPane.setPrefHeight(200);
-        dialogPane.setPrefWidth(500.0);
-        dialogPane.getStylesheets().add(App.class.getResource("style/dialog_pane.css").toExternalForm());
-        dialogPane.getStyleClass().add("dialog-pane");
+        Dialog<ButtonType> dialog = DialogGenerator.getDialog("Change Password", "dialog_pane");
         FXMLLoader loader = new FXMLLoader(App.class.getResource("view/change_password_dialog.fxml"));
         try {
             dialog.getDialogPane().setContent(loader.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.APPLY) {
             ChangePasswordDialogController controller = loader.getController();
             boolean successful = controller.changePassword();
             if (successful) {
-                AlertUtils.showInfoAlert("Successful", "Password has been changed successfully", "");
+                AlertGenerator.showInfoAlert("Successful", "Password has been changed successfully", "");
             } else {
-                AlertUtils.showErrorAlert("Incorrect Input", "Be sure you're fillling right informations",
+                AlertGenerator.showErrorAlert("Incorrect Input", "Be sure you're fillling right informations",
                         "");
                 changePassword(null);
             }
@@ -106,12 +96,12 @@ public class UserSettingsController {
             customer.setOtherDetails(otherDetailsTextField.getText().trim());
             DatabaseSource.getInstance().updateCustomerInfo();
 
-            AlertUtils.showInfoAlert("Successful", "Your information is updated successfully", "");
+            AlertGenerator.showInfoAlert("Successful", "Your information is updated successfully", "");
         }
     }
 
     private void deleteCustomer(ActionEvent event) {
-        boolean confirm = AlertUtils.showConfirmationAlert("Customer deletion",
+        boolean confirm = AlertGenerator.showConfirmationAlert("Customer deletion",
                 "Are you sure to delete your customer account", "All information about you will be lost");
         if (confirm) {
             DatabaseSource.getInstance().deleteCustomer();
@@ -128,17 +118,17 @@ public class UserSettingsController {
 
     private boolean inputValidations() {
         if (!phoneNumberRegexValidation(customerPhoneNumberTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Phone number is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Phone number is not correct",
                     "Please provide your phone number like (+000)00-000-00-00");
             return false;
         }
         if (!emailRegexValidation(customerEmailTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Email is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Email is not correct",
                     "Please provide correct email address");
             return false;
         }
         if (!usernameRegexValidation(customerLoginTextField)) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Username is not correct",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Username is not correct",
                     "Requirements:\n" +
                             "Length should be greater than or equal to 8\n" +
                             "Username could contain only letters, digits, ., _\n" +
@@ -147,15 +137,15 @@ public class UserSettingsController {
             return false;
         }
         if (!phoneNumberDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
+            AlertGenerator.showErrorAlert("Incorrect Input", "Customer with this phone number is already exist", "");
             return false;
         }
         if (!emailDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
+            AlertGenerator.showErrorAlert("Incorrect Input", "Customer with this email is already registered", "");
             return false;
         }
         if (!loginDBValidation()) {
-            AlertUtils.showErrorAlert("Incorrect Input", "Username is already token",
+            AlertGenerator.showErrorAlert("Incorrect Input", "Username is already token",
                     "Please take another username");
             return false;
         }
