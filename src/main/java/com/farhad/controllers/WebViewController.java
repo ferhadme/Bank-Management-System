@@ -22,10 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WebViewController {
-    /*
-    this is not actual source code. Just for testing...
-     */
-    public static final String SOURCE_CODE = "https://github.com/ferhad2207/Data-Structures-and-Algorithms";
+    public static final String SOURCE_CODE = "https://github.com/ferhad2207/Bank-Management-System";
 
     @FXML
     private WebView webView;
@@ -78,16 +75,14 @@ public class WebViewController {
     private void prevButtonOnAction(ActionEvent event) {
         try {
             history.go(-1);
-        } catch (IndexOutOfBoundsException e) {
-            //
+        } catch (IndexOutOfBoundsException ignored) {
         }
     }
 
     private void nextButtonOnAction(ActionEvent event) {
         try {
             history.go(1);
-        } catch (IndexOutOfBoundsException e) {
-            //
+        } catch (IndexOutOfBoundsException ignored) {
         }
     }
 
