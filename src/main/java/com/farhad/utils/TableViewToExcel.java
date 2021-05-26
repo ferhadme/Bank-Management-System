@@ -11,9 +11,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class TableViewToExcel {
-    public static void write(TableView<?> tableView, String tableName) {
+    public static void write(List<Transaction> transactionList, String tableName) {
         Workbook workbook = new XSSFWorkbook();
 
         Sheet sheet = workbook.createSheet(tableName);
@@ -48,8 +49,7 @@ public class TableViewToExcel {
         CellStyle style = workbook.createCellStyle();
         style.setWrapText(true);
         int index = 1;
-        for (Object obj : tableView.getItems()) {
-            Transaction transaction = (Transaction) obj;
+        for (Transaction transaction : transactionList) {
             Row row = sheet.createRow(index);
             Cell cell = row.createCell(0);
             cell.setCellValue(transaction.getAccountId());
@@ -62,11 +62,15 @@ public class TableViewToExcel {
             cell = row.createCell(2);
             cell.setCellValue(transaction.getAmountOfTransaction());
             cell.setCellStyle(style);
+            index++;
         }
 
         File currDir = getFile();
         if (currDir != null) {
-            String fileLocation = currDir.getAbsolutePath() + ".xlsx";
+            int length = currDir.toString().length();
+            // *.xlsx --> length - 5, length
+            String fileLocation = (currDir.toString().substring(length - 5, length).equals(".xlsx")) ?
+                    currDir.getAbsolutePath() : currDir.getAbsolutePath() + ".xlsx";
             System.out.println(fileLocation);
             try (FileOutputStream outputStream = new FileOutputStream(fileLocation)) {
                 workbook.write(outputStream);

@@ -28,4 +28,9 @@ public class Transaction {
     public float getAmountOfTransaction() {
         return amountOfTransaction;
     }
+
+    @Override
+    public String toString() {
+        return destinationAccountId;
+    }
 }
