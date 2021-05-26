@@ -1,9 +1,5 @@
 package com.farhad.models;
 
-import javafx.beans.property.FloatProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class Transaction {
     private final String accountId;
     private final String otherDetails;
@@ -31,5 +27,10 @@ public class Transaction {
 
     public float getAmountOfTransaction() {
         return amountOfTransaction;
+    }
+
+    @Override
+    public String toString() {
+        return destinationAccountId;
     }
 }

@@ -6,11 +6,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
@@ -22,10 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WebViewController {
-    /*
-    this is not actual source code. Just for testing...
-     */
-    public static final String SOURCE_CODE = "https://github.com/ferhad2207/Data-Structures-and-Algorithms";
+    public static final String SOURCE_CODE = "https://github.com/ferhad2207/Bank-Management-System";
 
     @FXML
     private WebView webView;
@@ -78,16 +73,14 @@ public class WebViewController {
     private void prevButtonOnAction(ActionEvent event) {
         try {
             history.go(-1);
-        } catch (IndexOutOfBoundsException e) {
-            //
+        } catch (IndexOutOfBoundsException ignored) {
         }
     }
 
     private void nextButtonOnAction(ActionEvent event) {
         try {
             history.go(1);
-        } catch (IndexOutOfBoundsException e) {
-            //
+        } catch (IndexOutOfBoundsException ignored) {
         }
     }
 

@@ -3,8 +3,6 @@ package com.farhad.database;
 import com.farhad.models.Account;
 import com.farhad.models.Customer;
 import com.farhad.models.Transaction;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;

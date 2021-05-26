@@ -13,13 +13,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -54,6 +50,7 @@ public class AccountsController {
 
     private Customer customer;
 
+
     public void initialize() {
         VBox.setMargin(accountInfoVBox, new Insets(20, 0, 0, 0));
         customer = DatabaseSource.getInstance().getCustomer();
@@ -74,7 +71,11 @@ public class AccountsController {
         incomesToExcel.setOnAction(this::writeIncomesToExcel);
         outcomesToExcel.setOnAction(this::writeOutcomesToExcel);
         accountsListView.setItems(customer.getAccounts());
+
         accountsListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        incomes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        outcomes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         accountsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldItem, newItem) -> {
             if (newItem != null) {
                 accountIdLabel.textProperty().bind(newItem.accountIdProperty());
@@ -116,6 +117,7 @@ public class AccountsController {
                 return cell;
             }
         });
+
     }
 
     private void deleteAccount(ActionEvent event) {
@@ -125,8 +127,8 @@ public class AccountsController {
             Account account = accountsListView.getSelectionModel().getSelectedItem();
             DatabaseSource.getInstance().deleteAccount(account);
             customer.getAccounts().remove(account);
-            accountsListView.getSelectionModel().clearSelection();
         }
+        clearSelections();
     }
 
     private void updateAccount(ActionEvent event) {
@@ -150,7 +152,7 @@ public class AccountsController {
                 updateAccount(null);
             }
         }
-        accountsListView.getSelectionModel().clearSelection();
+        clearSelections();
     }
 
     private void deposit(ActionEvent event) {
@@ -173,7 +175,7 @@ public class AccountsController {
                         "Be sure you're filling right information", "");
             }
         }
-        accountsListView.getSelectionModel().clearSelection();
+        clearSelections();
     }
 
     private void withdraw(ActionEvent event) {
@@ -196,16 +198,22 @@ public class AccountsController {
                         "Be sure you're filling right information and you have enough money", "");
             }
         }
-        accountsListView.getSelectionModel().clearSelection();
+        clearSelections();
     }
 
     private void writeIncomesToExcel(ActionEvent event) {
-        TableViewToExcel.write(incomes, "Incomes");
-        accountsListView.getSelectionModel().clearSelection();
+        TableViewToExcel.write(incomes.getSelectionModel().getSelectedItems(), "Incomes");
+        clearSelections();
     }
 
     private void writeOutcomesToExcel(ActionEvent event) {
-        TableViewToExcel.write(outcomes, "Outcomes");
-        accountsListView.getSelectionModel().clearSelection();
+        TableViewToExcel.write(outcomes.getSelectionModel().getSelectedItems(), "Outcomes");
+        clearSelections();
+    }
+
+    private void clearSelections() {
+        accountsListView.getSelectionModel().clearSelection();;
+        incomes.getSelectionModel().clearSelection();
+        outcomes.getSelectionModel().clearSelection();
     }
 }

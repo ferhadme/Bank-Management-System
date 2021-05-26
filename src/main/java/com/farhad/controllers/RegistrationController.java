@@ -171,7 +171,7 @@ public class RegistrationController {
                             "At least 8 characters\n" +
                             "Contains at least one digit\n" +
                             "Contains at least one lower alpha character and one upper alpha character\n" +
-                            "Contains at least one character within a set of special characters (@#%$^ etc)\n" +
+                            "Contains at least one character within a set of special characters (.@#%$^ etc)\n" +
                             "Does not contain space, tab, etc.");
             System.out.println("password regex is false");
             return false;

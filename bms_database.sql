@@ -131,9 +131,6 @@ create table transactions (
     on update cascade
 );
 
-alter table transactions
-add column destination_account_id varchar(50) not null;
-
 insert into customer_types (customer_type_code, customer_type_name, customer_type_description)
 values (1, 'Minor', 'A minor is someone who is under the age of 18'),
 (2, 'Married Women', 'A married woman can enter into a valid contract; she can also open a bank account. The husband will not be liable with regard to debts taken unless the loan is taken with his consent and authority or it is for the necessaries of life'),
