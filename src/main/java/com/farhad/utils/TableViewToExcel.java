@@ -92,8 +92,8 @@ public class TableViewToExcel {
 
     private static  <T> TableColumn<T, ?> getTableColumnByName(TableView<T> tableView, String name) {
         for (TableColumn<T, ?> col : tableView.getColumns())
-            if (col.getText().equals(name)) return col ;
-        return null ;
+            if (col.getText().equals(name)) return col;
+        return null;
     }
 
 }

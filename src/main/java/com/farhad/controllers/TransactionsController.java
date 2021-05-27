@@ -63,10 +63,19 @@ public class TransactionsController {
                 Transaction transaction = new Transaction(account.getAccountId(),
                         modifyNumber(destAccountIdTextField.getText().trim()), "", amount);
                 account.setAmountOfMoney(account.getAmountOfMoney() - amount);
-                DatabaseSource.getInstance().updateAccountMoney(account.getAccountId(), amount);
+                DatabaseSource.getInstance().updateAccountMoney(account.getAccountId(), -(amount));
                 DatabaseSource.getInstance().updateAccountMoney(modifyNumber(destAccountIdTextField.getText().trim()), amount);
                 DatabaseSource.getInstance().makeTransaction(transaction);
                 account.getOutcomes().add(transaction);
+                Account destinationAccountOfCustomer = checkOtherCustomerAccounts(modifyNumber(destAccountIdTextField.getText().trim()));
+                if (destinationAccountOfCustomer != null) {
+                    System.out.println("Condition is true");
+                    System.out.println(destinationAccountOfCustomer);
+                    destinationAccountOfCustomer.getIncomes().add(new Transaction(transaction.getAccountId(),
+                            transaction.getDestinationAccountId(), "",amount));
+
+                    destinationAccountOfCustomer.setAmountOfMoney(destinationAccountOfCustomer.getAmountOfMoney() + amount);
+                }
                 AlertGenerator.showInfoAlert("Successful", "Transaction has been made successfully", "");
             } catch (NumberFormatException e) {
                 AlertGenerator.showErrorAlert("Wrong Number Format",
@@ -76,5 +85,14 @@ public class TransactionsController {
                 amountOfMoneyTextField.clear();
             }
         }
+    }
+
+    private Account checkOtherCustomerAccounts(String accountId) {
+        for (Account account : customer.getAccounts()) {
+            if (account.getAccountId().equals(accountId)) {
+                return account;
+            }
+        }
+        return null;
     }
 }

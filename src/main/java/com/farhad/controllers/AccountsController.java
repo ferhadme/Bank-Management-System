@@ -19,14 +19,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 public class AccountsController {
     @FXML
     private ListView<Account> accountsListView;
-
-    @FXML
-    private BorderPane root;
 
     @FXML
     private Label accountIdLabel;
@@ -46,7 +44,6 @@ public class AccountsController {
     private VBox accountInfoVBox;
 
     private ContextMenu menu;
-    private MenuItem delete;
 
     private Customer customer;
 
@@ -106,10 +103,16 @@ public class AccountsController {
                             if (nowEmpty) {
                                 cell.setContextMenu(null);
                             } else if (accountsListView.getItems().size() == 1) {
+                                System.out.println("BEFORE DELETING");
+                                print(menu.getItems());
                                 menu.getItems().remove(delete);
                                 cell.setContextMenu(menu);
                             } else {
-                                menu.getItems().add(delete);
+                                System.out.println("BEFORE ADDING");
+                                print(menu.getItems());
+                                if (!menu.getItems().contains(delete)) {
+                                    menu.getItems().add(delete);
+                                }
                                 cell.setContextMenu(menu);
                             }
                         }
@@ -118,6 +121,13 @@ public class AccountsController {
             }
         });
 
+    }
+
+    private void print(List<MenuItem> items) {
+        for (MenuItem item : items) {
+            System.out.print(item.getText());
+        }
+        System.out.println();
     }
 
     private void deleteAccount(ActionEvent event) {
@@ -202,12 +212,20 @@ public class AccountsController {
     }
 
     private void writeIncomesToExcel(ActionEvent event) {
-        TableViewToExcel.write(incomes.getSelectionModel().getSelectedItems(), "Incomes");
+        List<Transaction> incomesList = incomes.getSelectionModel().getSelectedItems();
+        if (incomesList.size() == 0) {
+            incomesList = incomes.getItems();
+        }
+        TableViewToExcel.write(incomesList, "Incomes");
         clearSelections();
     }
 
     private void writeOutcomesToExcel(ActionEvent event) {
-        TableViewToExcel.write(outcomes.getSelectionModel().getSelectedItems(), "Outcomes");
+        List<Transaction> outcomesList = outcomes.getSelectionModel().getSelectedItems();
+        if (outcomesList.size() == 0) {
+            outcomesList = outcomes.getItems();
+        }
+        TableViewToExcel.write(outcomesList, "Outcomes");
         clearSelections();
     }
 
