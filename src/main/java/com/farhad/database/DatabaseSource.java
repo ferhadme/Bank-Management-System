@@ -258,11 +258,11 @@ public class DatabaseSource {
     private List<Transaction> getIncomesOfCustomer(String accountId) {
         List<Transaction> transactions = new ArrayList<>();
         try (Statement statement = connection.createStatement()) {
-            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_DEST_ACCOUNT_ID + ", " + COLUMN_OTHER_DETAILS +
-                    ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS + " WHERE " +
-                    COLUMN_DEST_ACCOUNT_ID + " = '" + accountId + "';");
+            ResultSet rs = statement.executeQuery("SELECT " + COLUMN_ACCOUNT_ID + ", " + COLUMN_DEST_ACCOUNT_ID +
+                    ", " + COLUMN_OTHER_DETAILS + ", " + COLUMN_AMOUNT_OF_TRANSACTION + " FROM " + TABLE_TRANSACTIONS +
+                    " WHERE " + COLUMN_DEST_ACCOUNT_ID + " = '" + accountId + "';");
             while (rs.next()) {
-                transactions.add(new Transaction(accountId, rs.getString(COLUMN_DEST_ACCOUNT_ID),
+                transactions.add(new Transaction(rs.getString(COLUMN_ACCOUNT_ID), rs.getString(COLUMN_DEST_ACCOUNT_ID),
                         rs.getString(COLUMN_OTHER_DETAILS), rs.getFloat(COLUMN_AMOUNT_OF_TRANSACTION)));
             }
         } catch (SQLException e) {
@@ -344,10 +344,10 @@ public class DatabaseSource {
         }
     }
 
-    public void updateAccountMoney(String accountId, float amount) {
+    public void updateAccountMoney(String accountId, double amount) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("UPDATE " + TABLE_ACCOUNTS + " SET " +
-                    COLUMN_AMOUNT_OF_MONEY + "=" + amount + " WHERE " +
+                    COLUMN_AMOUNT_OF_MONEY + "=(" + COLUMN_AMOUNT_OF_MONEY + "+" + amount + ") WHERE " +
                     COLUMN_ACCOUNT_ID + "='" + accountId + "';");
         } catch (SQLException e) {
             e.printStackTrace();

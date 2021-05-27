@@ -27,9 +27,6 @@ public class AccountsController {
     private ListView<Account> accountsListView;
 
     @FXML
-    private BorderPane root;
-
-    @FXML
     private Label accountIdLabel;
     @FXML
     private Label accountNameLabel;
@@ -47,7 +44,6 @@ public class AccountsController {
     private VBox accountInfoVBox;
 
     private ContextMenu menu;
-    private MenuItem delete;
 
     private Customer customer;
 
@@ -107,10 +103,16 @@ public class AccountsController {
                             if (nowEmpty) {
                                 cell.setContextMenu(null);
                             } else if (accountsListView.getItems().size() == 1) {
+                                System.out.println("BEFORE DELETING");
+                                print(menu.getItems());
                                 menu.getItems().remove(delete);
                                 cell.setContextMenu(menu);
                             } else {
-                                menu.getItems().add(delete);
+                                System.out.println("BEFORE ADDING");
+                                print(menu.getItems());
+                                if (!menu.getItems().contains(delete)) {
+                                    menu.getItems().add(delete);
+                                }
                                 cell.setContextMenu(menu);
                             }
                         }
@@ -119,6 +121,13 @@ public class AccountsController {
             }
         });
 
+    }
+
+    private void print(List<MenuItem> items) {
+        for (MenuItem item : items) {
+            System.out.print(item.getText());
+        }
+        System.out.println();
     }
 
     private void deleteAccount(ActionEvent event) {
