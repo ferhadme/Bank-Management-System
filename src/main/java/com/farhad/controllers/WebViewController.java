@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class WebViewController {
-    public static final String SOURCE_CODE = "https://github.com/ferhad2207/Bank-Management-System";
+    public static final String SOURCE_CODE = "https://github.com/ferhadme/Bank-Management-System";
 
     @FXML
     private WebView webView;
@@ -41,6 +41,7 @@ public class WebViewController {
     public void initialize() {
         VBox.setVgrow(webView, Priority.ALWAYS);
         webView.setContextMenuEnabled(false);
+        Tooltip.install(homeButton, new Tooltip("Go to Login page"));
         Tooltip.install(prevButton, new Tooltip("Click to go back"));
         Tooltip.install(nextButton, new Tooltip("Click to go forward"));
         Tooltip.install(refreshButton, new Tooltip("Reload this page"));
@@ -53,7 +54,6 @@ public class WebViewController {
     }
 
     public void loadURL(String url) {
-        Tooltip.install(homeButton, new Tooltip("Go to Login page"));
         webEngine = webView.getEngine();
         history = webEngine.getHistory();
         webEngine.load(url);
