@@ -66,9 +66,10 @@ public class DashboardMenuController {
 
     public void initialize() {
         Customer customer = DatabaseSource.getInstance().getCustomer();
-        // System.out.println(customer.nameProperty());
         userFullNameLabel.textProperty().bind(customer.nameProperty());
         userLoginNameLabel.textProperty().bind(customer.loginProperty());
+
+
         Object[][] menuItems = new Object[][]{
                 {overviewHBox, overviewLabel, overviewSeparator},
                 {accountsHBox, accountsLabel, accountsSeparator},

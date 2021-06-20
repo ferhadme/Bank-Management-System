@@ -13,7 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseSource {
-    private static DatabaseSource instance = new DatabaseSource();
+    private static final DatabaseSource instance = new DatabaseSource();
+
+    public static DatabaseSource getInstance() {
+        return instance;
+    }
 
     public static final String DB_NAME = "bank_management_system";
     public static final String PORT = "localhost:3306";
@@ -79,10 +83,6 @@ public class DatabaseSource {
     private Connection connection;
 
     private DatabaseSource() {}
-
-    public static DatabaseSource getInstance() {
-        return instance;
-    }
 
     public Customer getCustomer() {
         return customer;

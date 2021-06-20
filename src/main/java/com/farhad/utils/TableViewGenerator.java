@@ -36,5 +36,4 @@ public class TableViewGenerator {
         incomes.getColumns().addAll(incomeAccountId, incomeDestAccountId, incomeAmountOfTransaction);
         outcomes.getColumns().addAll(outcomeAccountId, outcomeDestAccountId, outcomeAmountOfTransaction);
     }
-
 }

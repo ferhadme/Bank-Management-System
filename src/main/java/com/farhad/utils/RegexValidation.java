@@ -5,6 +5,8 @@ import javafx.scene.control.TextField;
 
 public class RegexValidation {
 
+    private RegexValidation() {}
+
     public static boolean phoneNumberRegexValidation(TextField phoneTextField) {
         return modifyNumber(phoneTextField.getText().trim()).matches("^\\(\\+\\d+\\)(-?\\d+)+$");
     }
